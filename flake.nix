@@ -27,6 +27,11 @@
 
       nixosConfigurations = findMachines ./machines;
 
+      devShell.x86_64-linux = import ./secrets/shell.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        sops-nix = inputs.sops-nix.packages.x86_64-linux;
+      };
+
     };
   });
 
