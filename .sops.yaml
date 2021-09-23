@@ -1,7 +1,9 @@
 keys:
+  - &beini CC340A1392661DD38B0DE83DABB80FCB4FFE0BC5
   - &mmarx CAEE28820497C3AF79684E44D981CA0FF602751D
 
 creation_rules:
   - key_groups:
     - pgp:
+      - *beini
       - *mmarx
