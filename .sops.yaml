@@ -1,0 +1,7 @@
+keys:
+  - &mmarx CAEE28820497C3AF79684E44D981CA0FF602751D
+
+creation_rules:
+  - key_groups:
+    - pgp:
+      - *mmarx

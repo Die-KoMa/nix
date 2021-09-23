@@ -23,7 +23,7 @@
     ];
     outputs = {
 
-      nixosModules = findModules ["KoMa"] ./modules;
+      nixosModules = findModules [ "KoMa" ] ./modules;
 
       nixosConfigurations = findMachines ./machines;
 
