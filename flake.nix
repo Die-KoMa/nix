@@ -9,10 +9,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = github:Mic/sops-nix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
 
   outputs = flakes@{ wat, ... }: wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: rec {
+    loadModules = [
+      flakes.sops-nix.nixosModules.sops
+    ];
     outputs = {
 
       nixosModules = findModules ["KoMa"] ./modules;
