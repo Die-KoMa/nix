@@ -17,20 +17,20 @@
   };
 
 
-  outputs = flakes@{ wat, nixpkgs, sops-nix, ... }: wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: rec {
+  outputs = flakes@{ wat, nixpkgs, sops-nix, ... }: wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: {
     loadModules = [
       flakes.sops-nix.nixosModules.sops
     ];
-    outputs = {
+    outputs = (wat.lib.eachDefaultSystem (system: pkgs: {
+      systemOverlays = [ flakes.sops-nix.overlay ];
+
+      devShell = import ./secrets/shell.nix { inherit pkgs; };
+
+    })) // {
 
       nixosModules = findModules [ "KoMa" ] ./modules;
 
       nixosConfigurations = findMachines ./machines;
-
-      devShell.x86_64-linux = import ./secrets/shell.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        sops-nix = sops-nix.packages.x86_64-linux;
-      };
 
     };
   });

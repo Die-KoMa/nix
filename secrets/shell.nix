@@ -1,10 +1,10 @@
 { pkgs ? import <nixpkgs> { }
-, sops-nix ? pkgs.callPackage <sops-nix> { }
+, sops-import-keys-hook ? pkgs.sops-import-keys-hook
 , ...
 }:
 
 pkgs.mkShell {
   sopsPGPKeyDirs = [ ./keys/users ./keys/hosts ];
 
-  nativeBuildInputs = [ sops-nix.sops-import-keys-hook ];
+  nativeBuildInputs = [ sops-import-keys-hook ];
 }
