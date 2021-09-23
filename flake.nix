@@ -17,7 +17,7 @@
   };
 
 
-  outputs = flakes@{ wat, ... }: wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: rec {
+  outputs = flakes@{ wat, nixpkgs, sops-nix, ... }: wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: rec {
     loadModules = [
       flakes.sops-nix.nixosModules.sops
     ];
@@ -29,7 +29,7 @@
 
       devShell.x86_64-linux = import ./secrets/shell.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        sops-nix = inputs.sops-nix.packages.x86_64-linux;
+        sops-nix = sops-nix.packages.x86_64-linux;
       };
 
     };
