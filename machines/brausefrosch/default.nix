@@ -63,6 +63,11 @@ mkMachine { } ({ pkgs, ... }: {
 
   services.sshd.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    alacritty.terminfo
+    kitty.terminfo
+    htop
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
