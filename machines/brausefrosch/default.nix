@@ -67,6 +67,7 @@ mkMachine { } ({ pkgs, ... }: {
     alacritty.terminfo
     kitty.terminfo
     htop
+    git
   ];
 
   # This value determines the NixOS release from which the default
