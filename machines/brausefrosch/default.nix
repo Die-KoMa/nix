@@ -59,6 +59,10 @@ mkMachine { } ({ pkgs, ... }: {
         via = "141.30.30.129";
       }];
     };
+    nameservers = [
+      "141.30.30.1"
+      "141.76.14.1"
+    ];
   };
 
   services.sshd.enable = true;
@@ -69,6 +73,14 @@ mkMachine { } ({ pkgs, ... }: {
     htop
     git
   ];
+
+  nix = {
+    autoOptimiseStore = true;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    package = pkgs.nixFlakes;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
