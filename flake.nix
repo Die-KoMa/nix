@@ -2,7 +2,7 @@
 
   inputs = {
 
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-21.11;
 
     wat = {
       url = github:thelegy/wat;
@@ -21,9 +21,7 @@
     loadModules = [
       flakes.sops-nix.nixosModules.sops
     ];
-    outputs = (wat.lib.eachDefaultSystem (system: pkgs: {
-      systemOverlays = [ flakes.sops-nix.overlay ];
-
+    outputs = (wat.lib.withPkgsForLinux nixpkgs [ flakes.sops-nix.overlay ] (pkgs: {
       devShell = import ./secrets/shell.nix { inherit pkgs; };
 
     })) // {
