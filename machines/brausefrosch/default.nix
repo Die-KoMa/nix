@@ -46,6 +46,48 @@ mkMachine { }
       git
     ];
 
+    sops.secrets.desec_token = {
+      owner = "acme";
+      sopsFile = ../../secrets/brausefrosch.yml;
+    };
+    security.acme = {
+      acceptTerms = true;
+      #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+      email = "homepage@die-koma.org";
+      preliminarySelfsigned = false;
+      certs = {
+        "brausefrosch.die-koma.org" = {
+          extraDomainNames = [
+            "new.die-koma.org"
+          ];
+          dnsProvider = "desec";
+          credentialsFile = pkgs.writeText "acme-env" ''
+            DESEC_TOKEN_FILE=/run/secrets/desec_token
+            LEGO_EXPERIMENTAL_CNAME_SUPPORT=true
+            DESEC_PROPAGATION_TIMEOUT=300
+          '';
+          group = "nginx";
+          postRun = ''
+            systemctl start --failed nginx.service
+            systemctl reload nginx.service
+          '';
+        };
+      };
+    };
+
+    services.nginx = {
+      enable = true;
+      virtualHosts = {
+        default = {
+          default = true;
+          forceSSL = true;
+          useACMEHost = "brausefrosch.die-koma.org";
+        };
+      };
+    };
+
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
+
     nix = {
       autoOptimiseStore = true;
       extraOptions = ''
