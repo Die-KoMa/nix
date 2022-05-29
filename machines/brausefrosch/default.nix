@@ -42,6 +42,7 @@ mkMachine { }
     environment.systemPackages = with pkgs; [
       alacritty.terminfo
       kitty.terminfo
+      foot.terminfo
       htop
       git
     ];
