@@ -22,14 +22,15 @@
   };
 
   outputs = flakes@{ wat, nixpkgs, sops-nix, ... }:
-    wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: {
+    let inherit (nixpkgs.lib) attrValues;
+    in wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: {
       loadModules = [ flakes.sops-nix.nixosModules.sops ]
-        ++ (nixpkgs.lib.attrValues flakes.komapedia.nixosModules);
-      loadOverlays = [ flakes.komapedia.overlay ];
+        ++ (attrValues flakes.komapedia.nixosModules);
+      loadOverlays = (attrValues flakes.komapedia.overlays);
       outputs = {
-        devShell = wat.lib.withPkgsFor [ "x86_64-linux" ] nixpkgs
+        devShells = wat.lib.withPkgsFor [ "x86_64-linux" ] nixpkgs
           [ flakes.sops-nix.overlay ]
-          (pkgs: import ./secrets/shell.nix { inherit pkgs; });
+          (pkgs: { default = import ./secrets/shell.nix { inherit pkgs; }; });
 
         nixosModules = findModules [ "KoMa" ] ./modules;
 

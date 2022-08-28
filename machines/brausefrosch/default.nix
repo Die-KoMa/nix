@@ -7,7 +7,10 @@ mkMachine { }
       ./hardware-configuration.nix
     ];
 
-    wat.KoMa.admins.enable = true;
+    wat.KoMa = {
+      admins.enable = true;
+      komapedia.enable = true;
+    };
 
     boot.loader = {
       timeout = 5;
