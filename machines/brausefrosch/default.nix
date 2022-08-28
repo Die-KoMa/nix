@@ -54,7 +54,7 @@ mkMachine { }
     security.acme = {
       acceptTerms = true;
       #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      email = "homepage@die-koma.org";
+      defaults.email = "homepage@die-koma.org";
       preliminarySelfsigned = false;
       certs = {
         "brausefrosch.die-koma.org" = {
