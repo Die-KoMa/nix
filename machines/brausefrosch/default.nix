@@ -7,6 +7,12 @@ mkMachine { } ({ pkgs, lib, ... }: {
   wat.KoMa = {
     admins.enable = true;
     komapedia.enable = true;
+    matrix-bridge = {
+      enable = true;
+      domain = "die-koma.org";
+      serverName = "matrix.die-koma.org";
+      port = 8008;
+    };
   };
 
   boot.loader = {
