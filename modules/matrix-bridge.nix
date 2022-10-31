@@ -86,9 +86,7 @@ mkModule {
             ];
           };
 
-          extraConfigFiles = [
-            config.sops.secrets.synapse.path
-          ];
+          extraConfigFiles = [ config.sops.secrets.synapse.path ];
         };
 
         postgresql = {
@@ -157,7 +155,8 @@ mkModule {
               id = "telegram";
               bot_username = "telegrambot";
               bot_displayname = "Telegram bridge bot";
-              database = "postgresql:///mautrix-telegram?host=/var/lib/postgresql";
+              database =
+                "postgresql:///mautrix-telegram?host=/var/lib/postgresql";
             };
             bridge = {
               authless_portals = false;
