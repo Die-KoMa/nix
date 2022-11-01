@@ -63,7 +63,6 @@ mkModule {
           enable = true;
           settings = {
             server_name = cfg.domain;
-            allow_guest_access = false;
             enable_registration = false;
             database.name = "psycopg2";
 
@@ -80,7 +79,7 @@ mkModule {
               }];
             }];
             app_service_config_files = [
-              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
+              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-regestration.yaml
               # and the access rights needs to be fixed.
               "/var/lib/matrix-synapse/telegram-registration.yaml"
             ];
@@ -143,7 +142,7 @@ mkModule {
               # we could also go for https:// on port 443 and talk through nginx, but I don't
               # see any benefit in this for local communication
               address = "http://localhost:${toString cfg.port}";
-              domain = cfg.domain;
+              domain = "cfg.domain";
             };
             appservice = {
               address = "http://localhost:${toString cfg.bridgePort}";
@@ -155,8 +154,7 @@ mkModule {
               id = "telegram";
               bot_username = "telegrambot";
               bot_displayname = "Telegram bridge bot";
-              database =
-                "postgresql:///mautrix-telegram?host=/var/lib/postgresql";
+              database = "postgres://localhost/mautrix-telegram";
             };
             bridge = {
               authless_portals = false;
@@ -185,7 +183,17 @@ mkModule {
 
         };
 
-        path = with pkgs; [ lottieconverter ];
+        path = with pkgs;
+          [
+            lottieconverter # sadly unfree :( (tool to convert animated stickers)
+          ];
+      };
+
+      sops.secrets.mautrix-env-file = {
+        mode = "0400";
+        owner = "matrix-synapse";
+        group = "matrix-synapse";
+        sopsFile = ../secrets/matrix-bridge.yml;
       };
 
       sops.secrets = let
