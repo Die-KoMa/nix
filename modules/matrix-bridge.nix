@@ -142,7 +142,7 @@ mkModule {
               # we could also go for https:// on port 443 and talk through nginx, but I don't
               # see any benefit in this for local communication
               address = "http://localhost:${toString cfg.port}";
-              domain = "cfg.domain";
+              domain = cfg.domain;
             };
             appservice = {
               address = "http://localhost:${toString cfg.bridgePort}";
