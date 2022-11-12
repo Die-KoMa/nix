@@ -64,6 +64,7 @@ mkModule {
           settings = {
             server_name = cfg.domain;
             enable_registration = false;
+            database.name = "psycopg2";
 
             listeners = [{
               port = cfg.port;
