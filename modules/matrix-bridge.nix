@@ -157,7 +157,7 @@ mkModule {
               id = "telegram";
               bot_username = "telegrambot";
               bot_displayname = "Telegram bridge bot";
-              database = "postgres://localhost/mautrix-telegram";
+              database = "postgresql:///mautrix-telegram?host=/var/lib/postgresql";
             };
             bridge = {
               authless_portals = false;
