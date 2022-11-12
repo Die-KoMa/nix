@@ -78,7 +78,7 @@ mkModule {
 
               resources = [{
                 names = [ "client" "federation" ];
-                compress = true;
+                compress = false;
               }];
             }];
             app_service_config_files = [
