@@ -6,12 +6,14 @@ mkModule {
   options = cfg:
     liftToNamespace {
       serverName = mkOption {
-        description = "Server name for the synapse server (the actual fqdn of the server)";
+        description =
+          "Server name for the synapse server (the actual fqdn of the server)";
         type = types.str;
       };
 
       domain = mkOption {
-        description = "domain name for the synapse server, this is what appears in room and user id. It only needs to host .well-known";
+        description =
+          "domain name for the synapse server, this is what appears in room and user id. It only needs to host .well-known";
         type = types.str;
       };
 
@@ -20,7 +22,7 @@ mkModule {
         type = types.port;
         default = 8008;
       };
-      
+
       bridgePort = mkOption {
         description = "Port number for the bridge to listen on";
         type = types.port;
@@ -74,10 +76,10 @@ mkModule {
               }];
             }];
             app_service_config_files = [
-              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-regestration.yaml
+              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
               # and the access rights needs to be fixed.
               "/var/lib/matrix-synapse/telegram-registration.yaml"
-          ];
+            ];
           };
         };
 
@@ -91,12 +93,12 @@ mkModule {
               LC_CTYPE = "C";
           '';
           ensureDatabases = [ "mautrix-telegram" ];
-          ensureUsers = [
-            {
-              name = bridgeUser;
-              ensurePermissions = { "DATABASE mautrix-telegram" = "ALL PRIVILEGES";};
-            }
-          ];
+          ensureUsers = [{
+            name = bridgeUser;
+            ensurePermissions = {
+              "DATABASE mautrix-telegram" = "ALL PRIVILEGES";
+            };
+          }];
         };
 
         nginx = {
@@ -174,12 +176,13 @@ mkModule {
         serviceConfig = {
           User = bridgeUser;
           Group = bridgeGroup;
-        
+
         };
 
-        path = with pkgs; [
-          lottieconverter # sadly unfree :( (tool to convert animated stickers)
-        ];
+        path = with pkgs;
+          [
+            lottieconverter
+          ];
       };
 
       sops.secrets.mautrix-env-file = {
