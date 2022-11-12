@@ -93,8 +93,7 @@ mkModule {
 
         environment.systemPackages = let
           synapse-init-script = pkgs.writeScriptBin "synapse-init-db" ''
-            #! /usr/bin/env nix-shell
-            #! nix-shell -i psql -p ${config.service.postgresql.package}
+            #!${config.services.postgresql.package}/bin/psql
             CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
             CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
               TEMPLATE template0
