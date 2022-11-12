@@ -63,6 +63,7 @@ mkModule {
           enable = true;
           settings = {
             server_name = cfg.domain;
+            allow_guest_access = false;
             enable_registration = false;
             database.name = "psycopg2";
 
