@@ -107,7 +107,7 @@ mkModule {
           ensureUsers = [{
             name = bridgeUser;
             ensurePermissions = {
-              "DATABASE mautrix-telegram" = "ALL PRIVILEGES";
+              "DATABASE \"mautrix-telegram\"" = "ALL PRIVILEGES";
             };
           }];
         };
