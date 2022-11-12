@@ -86,19 +86,22 @@ mkModule {
             ];
           };
 
-          extraConfigFiles = [
-            config.sops.secrets.synapse.path
-          ];
+          extraConfigFiles = [ config.sops.secrets.synapse.path ];
         };
 
-        postgresql = {
-          initialScript = pkgs.writeText "synapse-init.sql" ''
+        environment.systemPackages = let
+          synapse-init-script = pkgs.writeScriptBin "synapse-init-db" ''
+            #! /usr/bin/env nix-shell
+            #! nix-shell -i psql -p ${config.service.postgresql.package}
             CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
             CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
               TEMPLATE template0
               LC_COLLATE = "C"
               LC_CTYPE = "C";
           '';
+        in [ synapse-init-script ];
+
+        postgresql = {
           ensureDatabases = [ "mautrix-telegram" ];
           ensureUsers = [{
             name = bridgeUser;
