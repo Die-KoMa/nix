@@ -60,6 +60,17 @@ mkModule {
 
       wat.postgresql.enable = true;
 
+      environment.systemPackages = let
+        synapse-init-script = pkgs.writeScriptBin "synapse-init-db" ''
+          #!${config.services.postgresql.package}/bin/psql
+          CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+          CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+            TEMPLATE template0
+            LC_COLLATE = "C"
+            LC_CTYPE = "C";
+        '';
+      in [ synapse-init-script ];
+
       services = {
         matrix-synapse = {
           enable = true;
@@ -90,17 +101,6 @@ mkModule {
 
           extraConfigFiles = [ config.sops.secrets.synapse.path ];
         };
-
-        environment.systemPackages = let
-          synapse-init-script = pkgs.writeScriptBin "synapse-init-db" ''
-            #!${config.services.postgresql.package}/bin/psql
-            CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
-            CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-              TEMPLATE template0
-              LC_COLLATE = "C"
-              LC_CTYPE = "C";
-          '';
-        in [ synapse-init-script ];
 
         postgresql = {
           ensureDatabases = [ "mautrix-telegram" ];
