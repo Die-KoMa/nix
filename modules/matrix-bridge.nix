@@ -58,7 +58,7 @@ mkModule {
     in {
       networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-      wat.postgresql.enable = true;
+      wat.KoMa.postgresql.enable = true;
 
       environment.systemPackages = let
         synapse-init-script = pkgs.writeScriptBin "synapse-init-db" ''
