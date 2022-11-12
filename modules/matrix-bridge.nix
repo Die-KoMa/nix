@@ -48,6 +48,8 @@ mkModule {
       mkWellKnown = data: ''
         add_header Content-Type application/json;
         add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods 'GET, POST, PUT, DELETE, OPTIONS';
+        add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type, Authorization';
         return 200 '${builtins.toJSON data}';
       '';
 
@@ -160,7 +162,8 @@ mkModule {
               id = "telegram";
               bot_username = "telegrambot";
               bot_displayname = "Telegram bridge bot";
-              database = "postgres://localhost/mautrix-telegram";
+              database =
+                "postgresql:///mautrix-telegram?host=/var/lib/postgresql";
             };
             bridge = {
               authless_portals = false;
