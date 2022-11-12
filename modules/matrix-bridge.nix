@@ -56,15 +56,12 @@ mkModule {
     in {
       networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-      wat.postgresql.enable = true;
-
       services = {
         matrix-synapse = {
           enable = true;
           settings = {
             server_name = cfg.domain;
             enable_registration = false;
-            database.name = "psycopg2";
 
             listeners = [{
               port = cfg.port;
@@ -79,16 +76,15 @@ mkModule {
               }];
             }];
             app_service_config_files = [
-              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-regestration.yaml
+              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
               # and the access rights needs to be fixed.
               "/var/lib/matrix-synapse/telegram-registration.yaml"
             ];
           };
-
-          extraConfigFiles = [ config.sops.secrets.synapse.path ];
         };
 
         postgresql = {
+          enable = true;
           initialScript = pkgs.writeText "synapse-init.sql" ''
             CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
             CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
@@ -185,7 +181,7 @@ mkModule {
 
         path = with pkgs;
           [
-            lottieconverter # sadly unfree :( (tool to convert animated stickers)
+            lottieconverter
           ];
       };
 
@@ -195,15 +191,5 @@ mkModule {
         group = "matrix-synapse";
         sopsFile = ../secrets/matrix-bridge.yml;
       };
-
-      sops.secrets = let
-        mkSecret = name:
-          nameValuePair name {
-            mode = "0400";
-            owner = "matrix-synapse";
-            group = "matrix-synapse";
-            sopsFile = ../secrets/matrix.yml;
-          };
-      in map mkSecret [ "mautrix-env-file" "synapse" ];
     };
 }
