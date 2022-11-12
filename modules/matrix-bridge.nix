@@ -56,6 +56,8 @@ mkModule {
     in {
       networking.firewall.allowedTCPPorts = [ 80 443 ];
 
+      wat.postgresql.enable = true;
+
       services = {
         matrix-synapse = {
           enable = true;
@@ -84,7 +86,6 @@ mkModule {
         };
 
         postgresql = {
-          enable = true;
           initialScript = pkgs.writeText "synapse-init.sql" ''
             CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
             CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
