@@ -196,13 +196,12 @@ mkModule {
       };
 
       sops.secrets = let
-        mkSecret = name:
-          nameValuePair name {
-            mode = "0400";
-            owner = "matrix-synapse";
-            group = "matrix-synapse";
-            sopsFile = ../secrets/matrix.yml;
-          };
-      in map mkSecret [ "mautrix-env-file" "synapse" ];
+        mkSecret = name: {
+          mode = "0400";
+          owner = "matrix-synapse";
+          group = "matrix-synapse";
+          sopsFile = ../secrets/matrix.yml;
+        };
+      in genAttrs [ "mautrix-env-file" "synapse" ] mkSecret;
     };
 }
