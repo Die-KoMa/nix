@@ -117,7 +117,8 @@ mkModule {
           enable = true;
           recommendedTlsSettings = true;
           recommendedOptimisation = true;
-          recommendedGzipSettings = true;
+          recommendedGzipSettings =
+            false; # potential security implications in combination with TLS
           recommendedProxySettings = true;
 
           virtualHosts = {
