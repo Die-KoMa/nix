@@ -85,6 +85,10 @@ mkModule {
               "/var/lib/matrix-synapse/telegram-registration.yaml"
             ];
           };
+
+          extraConfigFiles = [
+            config.sops.secrets.synapse.path
+          ];
         };
 
         postgresql = {
@@ -182,17 +186,17 @@ mkModule {
 
         };
 
-        path = with pkgs;
-          [
-            lottieconverter
-          ];
+        path = with pkgs; [ lottieconverter ];
       };
 
-      sops.secrets.mautrix-env-file = {
-        mode = "0400";
-        owner = "matrix-synapse";
-        group = "matrix-synapse";
-        sopsFile = ../secrets/matrix-bridge.yml;
-      };
+      sops.secrets = let
+        mkSecret = name:
+          nameValuePair name {
+            mode = "0400";
+            owner = "matrix-synapse";
+            group = "matrix-synapse";
+            sopsFile = ../secrets/matrix.yml;
+          };
+      in map mkSecret [ "mautrix-env-file" "synapse" ];
     };
 }
