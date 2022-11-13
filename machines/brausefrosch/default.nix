@@ -11,6 +11,7 @@ mkMachine { } ({ pkgs, lib, ... }: {
       enable = true;
       domain = "die-koma.org";
       serverName = "matrix.die-koma.org";
+      ACMEhost = "brausefrosch.die-koma.org";
       port = 8008;
     };
   };
@@ -56,12 +57,18 @@ mkMachine { } ({ pkgs, lib, ... }: {
   };
   security.acme = {
     acceptTerms = true;
-    #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-    defaults.email = "homepage@die-koma.org";
+    defaults = {
+      #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+      email = "homepage@die-koma.org";
+    };
     preliminarySelfsigned = false;
     certs = {
       "brausefrosch.die-koma.org" = {
-        extraDomainNames = [ "new.die-koma.org" ];
+        extraDomainNames = [
+          "brausefrosch.die-koma.org"
+          "new.die-koma.org"
+          "matrix.die-koma.org"
+        ];
         dnsProvider = "desec";
         credentialsFile = pkgs.writeText "acme-env" ''
           DESEC_TOKEN_FILE=/run/secrets/desec_token

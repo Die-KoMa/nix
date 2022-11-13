@@ -17,6 +17,11 @@ mkModule {
         type = types.str;
       };
 
+      ACMEhost = mkOption {
+        description = "virtual host to use for the ACME certificate";
+        type = types.str;
+      };
+
       port = mkOption {
         description = "Port number for the homeserver to listen on";
         type = types.port;
@@ -123,7 +128,7 @@ mkModule {
 
           virtualHosts = {
             "${cfg.domain}" = {
-              enableACME = true;
+              useACMEHost = "${cfg.ACMEhost}";
               forceSSL = true;
               locations."= /.well-known/matrix/server".extraConfig =
                 mkWellKnown serverConfig;
@@ -131,7 +136,7 @@ mkModule {
                 mkWellKnown clientConfig;
             };
             "${cfg.serverName}" = {
-              enableACME = true;
+              useACMEHost = "${cfg.ACMEhost}";
               forceSSL = true;
               locations."/".extraConfig = ''
                 return 404;
