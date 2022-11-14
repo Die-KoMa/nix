@@ -130,9 +130,9 @@ mkModule {
             "${cfg.domain}" = {
               useACMEHost = "${cfg.ACMEhost}";
               forceSSL = true;
-              locations."= /.well-known/matrix/server".extraConfig =
+              locations."/.well-known/matrix/server".extraConfig =
                 mkWellKnown serverConfig;
-              locations."= /.well-known/matrix/client".extraConfig =
+              locations."/.well-known/matrix/client".extraConfig =
                 mkWellKnown clientConfig;
             };
             "${cfg.serverName}" = {
