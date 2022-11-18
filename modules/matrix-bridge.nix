@@ -185,6 +185,11 @@ mkModule {
                   fs = 25;
                 };
               };
+              state_event_formats = {
+                join = "";
+                leave = "";
+                name_change = "";
+              };
             };
           };
         };
