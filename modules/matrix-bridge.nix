@@ -37,7 +37,7 @@ mkModule {
       bridgeAdmin = mkOption {
         description = "The name of the admin matrix user for the bridge";
         type = types.str;
-        default = "telegramAdmin";
+        default = "telegramadmin";
       };
     };
 
