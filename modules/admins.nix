@@ -23,6 +23,13 @@ let
       ];
     };
 
+    nerf = {
+      hashedPassword =
+        "$6$rounds=424242$FaEtIXMUScxgAYyF$Fl8GbPFgiEv.1iwrhtVpTixG1BTJys3aIfLyTzocQYZV4JymrYEXtnyCTURmVDe8stxbxgDutmtlyElfn1DQc/";
+      keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDGDe2GHC3ZUxwxWawLlKa3DRSHG1Cer5JL3ctc3GcRn nerf@nerflap2"
+      ];
+    };
   };
 
   mkAdmin = name:
