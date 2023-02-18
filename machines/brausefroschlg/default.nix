@@ -26,7 +26,6 @@ mkMachine { } ({ pkgs, lib, ... }: {
   };
 
   networking = {
-    hostName = "brausefrosch";
     interfaces."enp1s0".ipv4 = {
       addresses = [{
         address = "141.30.30.154";
