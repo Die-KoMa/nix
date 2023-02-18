@@ -2,7 +2,7 @@
 
 mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
 
-  system.stateVersion = "23.04";
+  system.stateVersion = "23.05";
 
   wat.installer.hcloud = {
     enable = true;
@@ -12,7 +12,7 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
   };
 
   wat.KoMa = {
-    admins.enable = true;
+    base.enable = true;
     # komapedia.enable = true;
     # matrix-bridge = {
     #   enable = true;
@@ -22,15 +22,5 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
     #   port = 8008;
     # };
   };
-
-  services.sshd.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    alacritty.terminfo
-    kitty.terminfo
-    foot.terminfo
-    htop
-    git
-  ];
 
 })
