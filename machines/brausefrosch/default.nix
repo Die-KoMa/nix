@@ -20,6 +20,7 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
         "new.die-koma.org"
       ];
     };
+    nginx.enable = true;
     # komapedia.enable = true;
     # matrix-bridge = {
     #   enable = true;
