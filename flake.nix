@@ -19,11 +19,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    homemanager = {
+      url = "github:nix-community/home-manager/release-22.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    yaner = {
+      url = "github:thelegy/yaner";
+      inputs.homemanager.follows = "homemanager";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.sops-nix.follows = "sops-nix";
+      inputs.wat.follows = "wat";
+    };
+
   };
 
   outputs = flakes@{ wat, nixpkgs, sops-nix, ... }:
     let
-      inherit (nixpkgs.lib) attrValues concatStringsSep;
+      inherit (nixpkgs.lib) attrValues concatLists concatStringsSep;
       sopsPGPKeyDirs = [ ./secrets/keys/users ./secrets/keys/hosts ];
       rekey = pkgs:
         pkgs.writeShellScriptBin "sops-rekey" ''
@@ -32,9 +46,18 @@
       withPkgs = wat.lib.withPkgsFor [ "x86_64-linux" ] nixpkgs
         [ flakes.sops-nix.overlay ];
     in wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: {
-      loadModules = [ flakes.sops-nix.nixosModules.sops ]
-        ++ (attrValues flakes.komapedia.nixosModules);
-      loadOverlays = (attrValues flakes.komapedia.overlays);
+      loadModules = concatLists [
+        [
+          flakes.homemanager.nixosModules.home-manager
+          flakes.sops-nix.nixosModules.sops
+        ]
+        (attrValues flakes.komapedia.nixosModules)
+        (attrValues flakes.yaner.nixosModules)
+      ];
+      loadOverlays = concatLists [
+        (attrValues flakes.komapedia.overlays)
+        [ flakes.yaner.overlay ]
+      ];
       outputs = {
         apps = withPkgs (pkgs:
           let
