@@ -13,6 +13,13 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
 
   wat.KoMa = {
     base.enable = true;
+    acme = {
+      enable = true;
+      staging = false;
+      extraDomainNames = [
+        "new.die-koma.org"
+      ];
+    };
     # komapedia.enable = true;
     # matrix-bridge = {
     #   enable = true;

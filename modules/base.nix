@@ -14,7 +14,7 @@ mkTrivialModule {
   # Restore systemd default
   services.logind.killUserProcesses = mkDefault true;
 
-  sops.defaultSopsFile = config.wat.machines.${config.networking.hostName}."secrets.yaml".file;
+  sops.defaultSopsFile = config.wat.machines.${config.networking.hostName}."secrets.yml".file;
 
   networking.domain = mkDefault "die-koma.org";
 

@@ -41,7 +41,7 @@
       sopsPGPKeyDirs = [ ./secrets/keys/users ./secrets/keys/hosts ];
       rekey = pkgs:
         pkgs.writeShellScriptBin "sops-rekey" ''
-          ${pkgs.findutils}/bin/find . -type f -regextype posix-extended -regex '.*/secrets/.*.ya?ml' -exec ${pkgs.sops}/bin/sops updatekeys {} \;
+          ${pkgs.findutils}/bin/find . -type f -regextype posix-extended -regex '.*/secrets(/.*)?.ya?ml' -exec ${pkgs.sops}/bin/sops updatekeys {} \;
         '';
       withPkgs = wat.lib.withPkgsFor [ "x86_64-linux" ] nixpkgs
         [ flakes.sops-nix.overlay ];
