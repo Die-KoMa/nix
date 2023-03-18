@@ -1,14 +1,13 @@
 { mkMachine, ... }:
 
-mkMachine { } ({ pkgs, lib, ... }: {
+mkMachine { } ({ pkgs, config, lib, ... }: {
 
   imports = [ ./hardware-configuration.nix ];
 
   wat.KoMa = {
     admins.enable = true;
     base.enable = true;
-    #komapedia.enable = true;
-
+    komapedia.enable = true;
     matrix-bridge = {
       enable = true;
       domain = "die-koma.org";
@@ -16,6 +15,7 @@ mkMachine { } ({ pkgs, lib, ... }: {
       ACMEhost = "brausefroschlg.die-koma.org";
       port = 8008;
     };
+
     nginx.enable = true;
 
     acme = {
@@ -25,6 +25,8 @@ mkMachine { } ({ pkgs, lib, ... }: {
       sopsCredentialsFile = "acme-hedns-tokens";
     };
   };
+
+  sops.defaultSopsFile = lib.mkForce ../brausefrosch/secrets.yml;
 
   boot.loader = {
     timeout = 5;
