@@ -46,6 +46,7 @@ mkTrivialModule {
         tablePrefix = "";
         passwordFile = config.sops.secrets.komapedia-database-password.path;
       };
+      passwordFile = config.sops.secrets.komapedia-database-password.path;
     };
 
     mysql = {
@@ -93,6 +94,6 @@ mkTrivialModule {
     };
 
   };
-  systemd.services.nginx.after = "mysql.service";
+  systemd.services.nginx.after = [ "mysql.service" ];
 
 }
