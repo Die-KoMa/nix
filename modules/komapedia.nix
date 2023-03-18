@@ -4,17 +4,11 @@ with lib;
 mkTrivialModule {
   die-koma.komapedia = { enable = true; };
 
-  users.users.komapedia = {
-    isSystemUser = true;
-    group = "wwwrun";
-  };
-  users.groups.wwwrun = { };
-
   sops.secrets = let
     mkSecret = args:
       ({
         mode = "0400";
-        owner = "komapedia";
+        owner = "mediawiki";
         group = config.services.nginx.group;
         sopsFile = ../secrets/komapedia.yml;
       } // args);
