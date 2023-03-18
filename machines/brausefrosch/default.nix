@@ -21,6 +21,7 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
       ];
     };
     nginx.enable = true;
+    homepage.enable = true;
     # komapedia.enable = true;
     # matrix-bridge = {
     #   enable = true;
