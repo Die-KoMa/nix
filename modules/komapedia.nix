@@ -6,9 +6,9 @@ mkTrivialModule {
 
   users.users.komapedia = {
     isSystemUser = true;
-    group = "koma-services";
+    group = "wwwrun";
   };
-  users.groups.koma-services = { };
+  users.groups.wwwrun = { };
 
   sops.secrets = let
     mkSecret = args:
