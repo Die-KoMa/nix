@@ -1,6 +1,6 @@
 { mkMachine, ... }:
 
-mkMachine { } ({ pkgs, config, lib, ... }: {
+mkMachine { } ({ pkgs, config, ... }: {
 
   imports = [ ./hardware-configuration.nix ];
 
@@ -25,8 +25,6 @@ mkMachine { } ({ pkgs, config, lib, ... }: {
       sopsCredentialsFile = "acme-hedns-tokens";
     };
   };
-
-  sops.defaultSopsFile = lib.mkForce ../brausefrosch/secrets.yml;
 
   boot.loader = {
     timeout = 5;
