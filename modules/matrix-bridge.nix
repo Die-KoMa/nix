@@ -20,6 +20,7 @@ mkModule {
       ACMEhost = mkOption {
         description = "virtual host to use for the ACME certificate";
         type = types.str;
+        default = config.networking.fqdn;
       };
 
       port = mkOption {
