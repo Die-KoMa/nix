@@ -38,12 +38,20 @@ mkTrivialModule {
   services.nginx.virtualHosts.homepage = {
     serverName = "die-koma.org";
     serverAliases = [
-      "www.die-koma.org"
       "new.die-koma.org"
     ];
     forceSSL = true;
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     root = "/var/www/homepage/htdocs";
+  };
+
+  services.nginx.virtualHosts.homepage-redirect = {
+    serverName = "www.die-koma.org";
+    serverAliases = [
+    ];
+    forceSSL = true;
+    useACMEHost = config.wat.KoMa.nginx.useACMEHost;
+    globalRedirect = "die-koma.org";
   };
 
 }
