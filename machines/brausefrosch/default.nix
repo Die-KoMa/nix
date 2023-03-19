@@ -17,7 +17,9 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
       enable = true;
       staging = false;
       extraDomainNames = [
+        "die-koma.org"
         "new.die-koma.org"
+        "www.die-koma.org"
       ];
     };
     nginx.enable = true;
