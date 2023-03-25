@@ -50,6 +50,7 @@ mkTrivialModule {
       proxyPass = "https://$1/$2?$args";
       extraConfig = ''
         internal;
+        ssi off;
         resolver 127.0.0.53;
         proxy_ssl_name $1;
         proxy_ssl_server_name on;
@@ -74,6 +75,7 @@ mkTrivialModule {
       proxyPass = "https://$1/$2?$args";
       extraConfig = ''
         internal;
+        ssi off;
         resolver 127.0.0.53;
         proxy_ssl_name $1;
         proxy_ssl_server_name on;
