@@ -66,6 +66,21 @@ mkTrivialModule {
     forceSSL = true;
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     root = "/var/www/homepage/htdocs";
+    extraConfig = ''
+      ssi on;
+      ssi_types *;
+    '';
+    locations."~ /https://([^/\\n]+)/(.*)" = {
+      proxyPass = "https://$1/$2?$args";
+      extraConfig = ''
+        internal;
+        resolver 127.0.0.53;
+        proxy_ssl_name $1;
+        proxy_ssl_server_name on;
+        proxy_pass_request_headers off;
+        proxy_pass_request_body off;
+      '';
+    };
   };
 
   services.nginx.virtualHosts.homepage-redirect = {
