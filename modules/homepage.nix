@@ -45,6 +45,7 @@ mkTrivialModule {
     extraConfig = ''
       ssi on;
       ssi_types *;
+      subrequest_output_buffer_size 64k;
     '';
     locations."~ /https://([^/\\n]+)/(.*)" = {
       proxyPass = "https://$1/$2?$args";
@@ -70,6 +71,7 @@ mkTrivialModule {
     extraConfig = ''
       ssi on;
       ssi_types *;
+      subrequest_output_buffer_size 64k;
     '';
     locations."~ /https://([^/\\n]+)/(.*)" = {
       proxyPass = "https://$1/$2?$args";
