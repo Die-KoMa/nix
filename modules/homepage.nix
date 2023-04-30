@@ -42,23 +42,6 @@ mkTrivialModule {
     forceSSL = true;
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     root = "/var/www/homepage/preview";
-    extraConfig = ''
-      ssi on;
-      ssi_types *;
-      subrequest_output_buffer_size 64k;
-    '';
-    locations."~ /https://([^/\\n]+)/(.*)" = {
-      proxyPass = "https://$1/$2?$args";
-      extraConfig = ''
-        internal;
-        ssi off;
-        resolver 127.0.0.53;
-        proxy_ssl_name $1;
-        proxy_ssl_server_name on;
-        proxy_pass_request_headers off;
-        proxy_pass_request_body off;
-      '';
-    };
   };
 
   services.nginx.virtualHosts.homepage = {
@@ -68,23 +51,6 @@ mkTrivialModule {
     forceSSL = true;
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     root = "/var/www/homepage/htdocs";
-    extraConfig = ''
-      ssi on;
-      ssi_types *;
-      subrequest_output_buffer_size 64k;
-    '';
-    locations."~ /https://([^/\\n]+)/(.*)" = {
-      proxyPass = "https://$1/$2?$args";
-      extraConfig = ''
-        internal;
-        ssi off;
-        resolver 127.0.0.53;
-        proxy_ssl_name $1;
-        proxy_ssl_server_name on;
-        proxy_pass_request_headers off;
-        proxy_pass_request_body off;
-      '';
-    };
   };
 
   services.nginx.virtualHosts.homepage-redirect = {
