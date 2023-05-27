@@ -16,7 +16,10 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
     };
 
     homemanager = {
@@ -26,11 +29,13 @@
 
     yaner = {
       url = "github:thelegy/yaner";
-      inputs.homemanager.follows = "homemanager";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.sops-nix.follows = "sops-nix";
-      inputs.wat.follows = "wat";
+      inputs = {
+        homemanager.follows = "homemanager";
+        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs";
+        sops-nix.follows = "sops-nix";
+        wat.follows = "wat";
+      };
     };
 
   };
