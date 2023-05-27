@@ -2,7 +2,7 @@
 with lib;
 
 mkTrivialModule {
-  die-koma.komapedia = { enable = true; };
+  die-koma.komapedia.enable = true;
 
   sops.secrets = let
     mkSecret = args:
@@ -87,12 +87,6 @@ mkTrivialModule {
         });
       };
     };
-
-    parsoid = {
-      enable = true;
-      wikis = [ "https://de.komapedia.org/wiki/api.php" ];
-    };
-
   };
   systemd.services.nginx.after = [ "mysql.service" ];
 
