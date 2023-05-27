@@ -30,6 +30,14 @@ let
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDGDe2GHC3ZUxwxWawLlKa3DRSHG1Cer5JL3ctc3GcRn nerf@nerflap2"
       ];
     };
+
+    bender = {
+      hashedPassword =
+        "$6$rounds=424242$H7lG3mtgKwx$xM1FQihMtl9MnN2CRLvoqdk1miYiNFELB6paHjBHAa0qzvf1eP4N7cLZ3W5Oh0o.LfjLZGk19LFd0gQS/R9YU/";
+      keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVuQrWWKRFVlFfiwagVNOys0mB+8ZS53Ku6XVXHzHN8 kimbtech@desktop"
+      ];
+    }
   };
 
   mkAdmin = name:
