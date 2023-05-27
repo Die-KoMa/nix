@@ -37,7 +37,7 @@ let
       keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVuQrWWKRFVlFfiwagVNOys0mB+8ZS53Ku6XVXHzHN8 kimbtech@desktop"
       ];
-    }
+    };
   };
 
   mkAdmin = name:
