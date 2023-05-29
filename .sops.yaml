@@ -1,6 +1,9 @@
 keys:
   - &beini CC340A1392661DD38B0DE83DABB80FCB4FFE0BC5
   - &mmarx CAEE28820497C3AF79684E44D981CA0FF602751D
+  - &magnus FFA2201EF5AFBD802CA6197B5149A211831F2BD7
+  - &nerf 02DD19945B6694F118A845B8D687EF2388D4B54D
+  - &uschi FBF05D7DC0A652DD6732006E8747E256FDDE9F67
 
   - &brausefrosch 0cdde9adfa50e62e7387cd45038ea1fb733e94e0
   - &brausefroschlg 707718295c9ff9db52ca5ee9ff27c24dca36266b
@@ -12,6 +15,16 @@ creation_rules:
       - *brausefrosch
       - *beini
       - *mmarx
+      - *magnus
+      - *nerf
+  - path_regex: machines/brausefroschlg/.*
+    key_groups:
+    - pgp:
+      - *brausefroschlg
+      - *beini
+      - *mmarx
+      - *magnus
+      - *nerf
   - path_regex: secrets/.*
     key_groups:
     - pgp:
@@ -19,7 +32,11 @@ creation_rules:
       - *brausefroschlg
       - *beini
       - *mmarx
+      - *magnus
+      - *nerf
   - key_groups:
     - pgp:
       - *beini
       - *mmarx
+      - *magnus
+      - *nerf
