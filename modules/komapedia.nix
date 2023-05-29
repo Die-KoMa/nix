@@ -56,31 +56,43 @@ mkTrivialModule {
 
     nginx = {
       virtualHosts.komapedia = {
+        onlySSL = true;
+        useACMEHost = config.networking.fqdn;
         serverName = "de.komapedia.org";
         serverAliases =
           [ "komapedia.org" "www.komapedia.org" "42.komapedia.org" ];
-        root = "${config.services.mediawiki.package}/share/mediawiki/";
+        root = "${config.services.mediawiki.finalPackage}/share/mediawiki/";
         locations = {
-          "/".extraConfig = ''
-            rewrite ^ /wiki/index.php;
+          "/" = {
+            tryFiles = "$uri $uri/ @rewrite";
+            index = "index.php";
+          };
+          "@rewrite".extraConfig = ''
+            rewrite ^/(wiki/)?(.*)$ /index.php?title=$1&$args;
+            rewrite ^$ /index.php;
           '';
-          "/wiki/".alias =
-            "${config.services.mediawiki.package}/share/mediawiki/";
-          "~ \\.php$".extraConfig = ''
-            fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:${config.services.phpfpm.pools.mediawiki.socket};
-            include ${config.services.nginx.package}/conf/fastcgi.conf;
-            include ${config.services.nginx.package}/conf/fastcgi_params;
+          "~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$args";
+          "^~ /maintenance/".return = "403";
+          "~ \\.php$" = {
+            fastcgiParams.SCRIPT_FILENAME = "$request_filename";
+            extraConfig = ''
+              fastcgi_pass unix:${config.services.phpfpm.pools.mediawiki.socket};
+            '';
+          };
+          "~ \\.(js|css|ttf|woff2?|png|jpe?g|svg|ico)$" = {
+            tryFiles = "$uri /index.php";
+            extraConfig = ''
+              expires max;
+              log_not_found off;
+              access_log off;
+            '';
+          };
+          "/_.gif".extraConfig = ''
+            expires max;
+            empty_gif;
           '';
-          "~ \\.(js|css|ttf|woff2?|png|jpe?g|svg)$".extraConfig = ''
-            add_header Cache-Control "public, max-age=15778463";
-            add_header X-Content-Type-Options nosniff;
-            add_header X-XSS-Protection "1; mode=block";
-            add_header X-Robots-Tag none;
-            add_header X-Download-Options noopen;
-            add_header X-Permitted-Cross-Domain-Policies none;
-            add_header Referrer-Policy no-referrer;
-            access_log off;
+          "^~ /cache/".extraConfig = ''
+            deny all;
           '';
         } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
           "/images/".alias = "${config.services.mediawiki.uploadsDir}";
