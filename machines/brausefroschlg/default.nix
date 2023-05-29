@@ -20,7 +20,7 @@ mkMachine { } ({ pkgs, lib, ... }: {
 
     acme = {
       enable = true;
-      staging = true;
+      staging = false;
       extraDomainNames = [ "matrix.die-koma.org" ];
       sopsCredentialsFile = "acme-hedns-tokens";
     };
