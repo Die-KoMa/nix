@@ -22,7 +22,7 @@ mkModule {
 
       sopsCredentialsFile = mkOption {
         type = types.str;
-        default = "acme-credentials-file";
+        default = "acme-hedns-tokens";
       };
 
       reloadUnits = mkOption {
