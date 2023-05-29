@@ -52,7 +52,7 @@ mkMachine { } ({ pkgs, lib, ... }: {
 
   sops.secrets.desec_token = {
     owner = "acme";
-    sopsFile = ../../secrets/brausefrosch.yml;
+    sopsFile = ./secrets.yml;
   };
   security.acme = {
     acceptTerms = true;
