@@ -34,6 +34,8 @@ mkMachine {} ({ lib, pkgs, config, ... }: with lib; {
     # };
   };
 
+  wat.thelegy.backup.enable = true;
+
   services.nginx.virtualHosts.homepage = let
     clientConfig = {
       "m.homeserver".base_url = "https://matrix.die-koma.org";
