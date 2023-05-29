@@ -1,4 +1,6 @@
-{ mkTrivialModule, config, pkgs, ... }:
+{ mkTrivialModule, config, pkgs, lib, ... }:
+
+with lib;
 
 mkTrivialModule {
   services = {
@@ -8,5 +10,9 @@ mkTrivialModule {
     };
 
     mysqlBackup.enable = true;
+  };
+
+  fileSystems = mkIf config.wat.installer.btrfs.enable {
+    "/var/lib/mysql".options = [ "nocow" ];
   };
 }
