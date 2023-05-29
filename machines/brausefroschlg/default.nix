@@ -7,12 +7,21 @@ mkMachine { } ({ pkgs, lib, ... }: {
   wat.KoMa = {
     admins.enable = true;
     #komapedia.enable = true;
+
     matrix-bridge = {
       enable = true;
       domain = "die-koma.org";
       serverName = "matrix.die-koma.org";
-      ACMEhost = "brausefrosch.die-koma.org";
+      ACMEhost = "brausefroschlg.die-koma.org";
       port = 8008;
+    };
+    nginx.enable = true;
+
+    acme = {
+      enable = true;
+      staging = true;
+      extraDomainNames = [ "matrix.die-koma.org" ];
+      sopsCredentialsFile = "acme-hedns-tokens";
     };
   };
 
@@ -38,6 +47,7 @@ mkMachine { } ({ pkgs, lib, ... }: {
       }];
     };
     nameservers = [ "141.30.30.1" "141.76.14.1" ];
+    domain = "die-koma.org";
   };
 
   services.sshd.enable = true;
@@ -50,51 +60,10 @@ mkMachine { } ({ pkgs, lib, ... }: {
     git
   ];
 
-  sops.secrets.desec_token = {
+  sops.secrets.acme-hedns-tokens = {
     owner = "acme";
     sopsFile = ./secrets.yml;
   };
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      email = "homepage@die-koma.org";
-    };
-    preliminarySelfsigned = false;
-    certs = {
-      "brausefrosch.die-koma.org" = {
-        extraDomainNames = [
-          "brausefrosch.die-koma.org"
-          "new.die-koma.org"
-          "matrix.die-koma.org"
-        ];
-        dnsProvider = "desec";
-        credentialsFile = pkgs.writeText "acme-env" ''
-          DESEC_TOKEN_FILE=/run/secrets/desec_token
-          LEGO_EXPERIMENTAL_CNAME_SUPPORT=true
-          DESEC_PROPAGATION_TIMEOUT=300
-        '';
-        group = "nginx";
-        postRun = ''
-          systemctl start --failed nginx.service
-          systemctl reload nginx.service
-        '';
-      };
-    };
-  };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      default = {
-        default = true;
-        forceSSL = true;
-        useACMEHost = "brausefrosch.die-koma.org";
-      };
-    };
-  };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   nix = {
     autoOptimiseStore = true;

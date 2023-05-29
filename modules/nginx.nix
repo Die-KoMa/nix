@@ -1,24 +1,19 @@
-{ mkModule
-, config
-, lib
-, liftToNamespace
-, ... }:
+{ mkModule, config, lib, liftToNamespace, ... }:
 with lib;
 
 mkModule {
-  options = cfg: liftToNamespace {
+  options = cfg:
+    liftToNamespace {
 
-    useACMEHost = mkOption {
-      type = types.str;
-      default = config.networking.fqdn;
+      useACMEHost = mkOption {
+        type = types.str;
+        default = config.networking.fqdn;
+      };
+
     };
-
-  };
   config = cfg: {
 
-    wat.KoMa.acme.reloadUnits = [
-      "nginx.service"
-    ];
+    wat.thelegy.acme.reloadUnits = [ "nginx.service" ];
 
     services.nginx = {
       enable = true;
