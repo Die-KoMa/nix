@@ -6,6 +6,7 @@ mkMachine { } ({ pkgs, lib, ... }: {
 
   wat.KoMa = {
     admins.enable = true;
+    base.enable = true;
     #komapedia.enable = true;
 
     matrix-bridge = {
@@ -63,14 +64,6 @@ mkMachine { } ({ pkgs, lib, ... }: {
   sops.secrets.acme-hedns-tokens = {
     owner = "acme";
     sopsFile = ./secrets.yml;
-  };
-
-  nix = {
-    autoOptimiseStore = true;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    package = pkgs.nixFlakes;
   };
 
   # This value determines the NixOS release from which the default
