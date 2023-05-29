@@ -49,7 +49,7 @@
           ${pkgs.findutils}/bin/find . -type f -regextype posix-extended -regex '.*/secrets(/.*)?.ya?ml' -exec ${pkgs.sops}/bin/sops updatekeys {} \;
         '';
       withPkgs = wat.lib.withPkgsFor [ "x86_64-linux" ] nixpkgs
-        [ flakes.sops-nix.overlay ];
+        [ flakes.sops-nix.overlays.default ];
     in wat.lib.mkWatRepo flakes ({ findModules, findMachines, ... }: {
       loadModules = concatLists [
         [
