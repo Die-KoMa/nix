@@ -7,7 +7,7 @@ mkMachine { } ({ pkgs, config, ... }: {
   wat.KoMa = {
     admins.enable = true;
     base.enable = true;
-    komapedia.enable = true;
+    #komapedia.enable = true;
     matrix-bridge = {
       enable = true;
       domain = "die-koma.org";
