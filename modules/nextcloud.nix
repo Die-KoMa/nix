@@ -51,6 +51,10 @@ in mkTrivialModule {
   sops.secrets.nextcloud-secrets = {
     mode = "0400";
     owner = "nextcloud";
+
+    # apparently, the cloud dislikes redeployed secrets, so make sure
+    # to reload it
+    reloadUnits = [ "phpfpm-nextcloud.service" ];
   };
 
   services.redis = {
