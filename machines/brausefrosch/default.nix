@@ -16,6 +16,7 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       base.enable = true;
       nginx.enable = true;
       homepage.enable = true;
+      nextcloud.enable = true;
       # komapedia.enable = true;
       # matrix-bridge = {
       #   enable = true;
@@ -34,6 +35,16 @@ mkMachine { } ({ lib, pkgs, config, ... }:
     };
 
     wat.thelegy.backup.enable = true;
+
+    fileSystems."/data" = {
+      device = "/dev/disk/by-label/data";
+      fsType = "btrfs";
+      options = [
+        "compress=zstd"
+        "discard=async"
+        "noatime"
+      ];
+    };
 
     services.nginx.virtualHosts.homepage = let
       clientConfig = {
