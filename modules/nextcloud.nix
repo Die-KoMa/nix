@@ -4,7 +4,7 @@ with lib;
 
 let
   domainName = "cloud.die-koma.org";
-  extraDomainNames = [ "51.cloud.die-koma.org" ];
+  extraDomainNames = [ ];
   home = "/data/nextcloud";
   shortlinks = {
     public = "/s/Li2bQd4q5p8NMCR";
