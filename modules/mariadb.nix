@@ -9,7 +9,10 @@ mkTrivialModule {
       package = pkgs.mariadb_1010;
     };
 
-    mysqlBackup.enable = true;
+    mysqlBackup = {
+      enable = true;
+      singleTransaction = true;
+    };
   };
 
   systemd.tmpfiles.rules = [
