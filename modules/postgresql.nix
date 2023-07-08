@@ -12,13 +12,8 @@ mkTrivialModule {
     postgresqlBackup.enable = true;
   };
 
-  systemd.tmpfiles.rules = let
-    mode = if config.services.postgresql.groupAccessAvailable then
-      "0750"
-    else
-      "0700";
-  in [
-    "d /var/lib/postgresql ${mode} postgres postgres - -"
+  systemd.tmpfiles.rules = [
+    "d /var/lib/postgresql 0750 postgres postgres - -"
     "H /var/lib/postgresql - - - - +C"
   ];
 
