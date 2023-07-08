@@ -34,7 +34,13 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       };
     };
 
-    wat.thelegy.backup.enable = true;
+    wat.thelegy.backup = {
+      enable = true;
+      extraReadWritePaths = [
+        "/.backup-snapshots"
+        "/data/.backup-snapshots"
+      ];
+    };
 
     fileSystems."/data" = {
       device = "/dev/disk/by-label/data";
