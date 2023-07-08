@@ -9,7 +9,10 @@ mkTrivialModule {
       package = pkgs.postgresql_14;
     };
 
-    postgresqlBackup.enable = true;
+    postgresqlBackup = {
+      enable = true;
+      backupAll = true;
+    };
   };
 
   systemd.tmpfiles.rules = [

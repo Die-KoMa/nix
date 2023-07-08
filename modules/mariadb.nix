@@ -12,6 +12,7 @@ mkTrivialModule {
     mysqlBackup = {
       enable = true;
       singleTransaction = true;
+      databases = config.services.mysql.ensureDatabases;
     };
   };
 
