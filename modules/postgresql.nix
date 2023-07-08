@@ -12,7 +12,14 @@ mkTrivialModule {
     postgresqlBackup.enable = true;
   };
 
-  fileSystems = mkIf config.wat.installer.btrfs.enable {
-    "/var/lib/postgresql".options = [ "nocow" ];
-  };
+  systemd.tmpfiles.rules = let
+    mode = if config.services.postgresql.groupAccessAvailable then
+      "0750"
+    else
+      "0700";
+  in [
+    "d /var/lib/postgresql ${mode} postgres postgres - -"
+    "H /var/lib/postgresql - - - - +C"
+  ];
+
 }

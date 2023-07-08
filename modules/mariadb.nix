@@ -12,7 +12,8 @@ mkTrivialModule {
     mysqlBackup.enable = true;
   };
 
-  fileSystems = mkIf config.wat.installer.btrfs.enable {
-    "/var/lib/mysql".options = [ "nocow" ];
-  };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/mysql 0700 ${config.services.mysql.user} ${config.services.mysql.group} - -"
+    "H /var/lib/mysql - - - - +C"
+  ];
 }
