@@ -1,8 +1,19 @@
 { mkTrivialModule, config, lib, ... }:
 with lib;
 
-mkTrivialModule {
-  die-koma.komapedia.enable = true;
+let
+  domainName = "42.komapedia.org";
+  extraDomainNames = [
+    # "komapedia.org"
+    # "de.komapedia.org"
+    # "www.komapedia.org"
+  ];
+  stateDir = "/data/mediawiki";
+in mkTrivialModule {
+  die-koma.komapedia = {
+    enable = true;
+    inherit stateDir;
+  };
 
   sops.secrets = let
     mkSecret = args:
@@ -25,12 +36,7 @@ mkTrivialModule {
   wat.KoMa = {
     acme = {
       enable = true;
-      extraDomainNames = [
-        "komapedia.org"
-        "de.komapedia.org"
-        "www.komapedia.org"
-        "42.komapedia.org"
-      ];
+      extraDomainNames = (singleton domainName) ++ extraDomainNames;
     };
 
     mariadb.enable = true;
@@ -58,9 +64,8 @@ mkTrivialModule {
       virtualHosts.komapedia = {
         onlySSL = true;
         useACMEHost = config.networking.fqdn;
-        serverName = "de.komapedia.org";
-        serverAliases =
-          [ "komapedia.org" "www.komapedia.org" "42.komapedia.org" ];
+        serverName = domainName;
+        serverAliases = extraDomainNames;
         root = "${config.services.mediawiki.finalPackage}/share/mediawiki/";
         locations = {
           "/" = {
