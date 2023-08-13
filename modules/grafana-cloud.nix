@@ -27,11 +27,12 @@ mkModule {
       cfg.sopsGrafanaMetricsUrlFile
       cfg.sopsGrafanaMetricsUserFile
       cfg.sopsGrafanaMetricsPasswordFile
-    ] (_: {
-      format = "yaml";
-      mode = "0600";
-      restartUnits = [ "grafana-agent.service" ];
-    });
+    ]
+      (_: {
+        format = "yaml";
+        mode = "0600";
+        restartUnits = [ "grafana-agent.service" ];
+      });
 
     services.grafana-agent = {
       enable = true;
