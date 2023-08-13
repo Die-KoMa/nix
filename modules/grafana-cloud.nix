@@ -46,6 +46,11 @@ mkModule {
           basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
           basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
         }];
+        integrations.node_exporter = {
+          enable_collectors = [
+            "systemd"
+          ];
+        };
       };
     };
 
