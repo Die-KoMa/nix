@@ -13,11 +13,17 @@ mkMachine { } ({ lib, pkgs, config, ... }:
     };
 
     wat.KoMa = {
+      acme = {
+        enable = true;
+        staging = false;
+        extraDomainNames =
+          [ "die-koma.org" "new.die-koma.org" "www.die-koma.org" ];
+      };
       base.enable = true;
-      nginx.enable = true;
+      grafana-cloud.enable = true;
       homepage.enable = true;
-      nextcloud.enable = true;
       # komapedia.enable = true;
+      nextcloud.enable = true;
       # matrix-bridge = {
       #   enable = true;
       #   domain = "die-koma.org";
@@ -25,13 +31,7 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       #   ACMEhost = "brausefrosch.die-koma.org";
       #   port = 8008;
       # };
-
-      acme = {
-        enable = true;
-        staging = false;
-        extraDomainNames =
-          [ "die-koma.org" "new.die-koma.org" "www.die-koma.org" ];
-      };
+      nginx.enable = true;
     };
 
     wat.thelegy.backup = {
