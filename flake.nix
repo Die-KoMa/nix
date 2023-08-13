@@ -59,10 +59,7 @@
         (attrValues flakes.komapedia.nixosModules)
         (attrValues flakes.yaner.nixosModules)
       ];
-      loadOverlays = concatLists [
-        (attrValues flakes.komapedia.overlays)
-        [ flakes.yaner.overlay ]
-      ];
+      loadOverlays = concatLists [ [ flakes.yaner.overlay ] ];
       outputs = {
         apps = withPkgs (pkgs:
           let
