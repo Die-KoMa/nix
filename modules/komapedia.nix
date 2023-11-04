@@ -22,6 +22,7 @@ in mkTrivialModule {
         owner = "mediawiki";
         group = config.services.nginx.group;
         sopsFile = ../secrets/komapedia.yml;
+        restartUnits = [ "phpfpm-mediawiki.service" ];
       } // args);
   in {
     komapedia-secret-key = mkSecret {
