@@ -22,7 +22,7 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       base.enable = true;
       grafana-cloud.enable = true;
       homepage.enable = true;
-      # komapedia.enable = true;
+      komapedia.enable = true;
       nextcloud.enable = true;
       # matrix-bridge = {
       #   enable = true;
