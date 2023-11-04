@@ -10,6 +10,7 @@ let
         "$6$rounds=424242$4XeOOipFMr154yFt$duKTFu2mSR9LnrGILjgumlxl8FltvCo9RBjhWi1N56avEVaAJym3LFlw3y2.JMCVYAO2ZpK75eF7B/7cSu5rR0";
       keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMCC4cFL1xcZOsIzXg1b/M4b89ofMKErNhg9s+0NdBVC beinke@th1"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPiDlbJKEnmM2G8Br8Yj2M+cIEyTXqP4qJM6+gBQ1pm beinke@sirrah"
       ];
     };
 
