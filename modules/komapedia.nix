@@ -3,8 +3,9 @@ with lib;
 
 let
   domainName = "de.komapedia.org";
-  extraDomainNames =
-    [ "komapedia.org" "file.komapedia.org" "www.komapedia.org" ];
+  extraDomainNames = [ "komapedia.org" "www.komapedia.org" ];
+  fileDomainName = "file.komapedia.org";
+  extraFileDomainNames = [ "die-reso.org" "reso.die-orga.org" ];
   stateDir = "/data/mediawiki";
 in mkTrivialModule {
   die-koma.komapedia = {
@@ -34,7 +35,12 @@ in mkTrivialModule {
   wat.KoMa = {
     acme = {
       enable = true;
-      extraDomainNames = (singleton domainName) ++ extraDomainNames;
+      extraDomainNames = concatLists [
+        (singleton domainName)
+        extraDomainNames
+        (singleton fileDomainName)
+        extraFileDomainNames
+      ];
     };
 
     mariadb.enable = true;
@@ -59,48 +65,64 @@ in mkTrivialModule {
     };
 
     nginx = {
-      virtualHosts.komapedia = {
-        onlySSL = true;
-        useACMEHost = config.networking.fqdn;
-        serverName = domainName;
-        serverAliases = extraDomainNames;
-        root = "${config.services.mediawiki.finalPackage}/share/mediawiki/";
-        locations = {
-          "/" = {
-            tryFiles = "$uri $uri/ @rewrite";
-            index = "index.php";
-          };
-          "@rewrite".extraConfig = ''
-            rewrite ^/(wiki/)?(.*)$ /index.php?title=$1&$args;
-            rewrite ^$ /index.php;
-          '';
-          "~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$args";
-          "^~ /maintenance/".return = "403";
-          "~ \\.php$" = {
-            fastcgiParams.SCRIPT_FILENAME = "$request_filename";
-            extraConfig = ''
-              fastcgi_pass unix:${config.services.phpfpm.pools.mediawiki.socket};
+      virtualHosts = {
+        komapedia-file = {
+          onlySSL = true;
+          useACMEHost = config.networking.fqdn;
+          serverName = fileDomainName;
+          serverAliases = extraFileDomainNames;
+
+          locations = {
+            "/" = { tryFiles = "@rewrite"; };
+            "@rewrite".extraConfig = ''
+              rewrite ^/(*.)$ https://${domainName}/wiki/Spezial:Weiterleitung/file/$1 redirect
             '';
           };
-          "~ \\.(js|css|ttf|woff2?|png|jpe?g|svg|ico)$" = {
-            tryFiles = "$uri /index.php";
-            extraConfig = ''
+        };
+
+        komapedia = {
+          onlySSL = true;
+          useACMEHost = config.networking.fqdn;
+          serverName = domainName;
+          serverAliases = extraDomainNames;
+          root = "${config.services.mediawiki.finalPackage}/share/mediawiki/";
+          locations = {
+            "/" = {
+              tryFiles = "$uri $uri/ @rewrite";
+              index = "index.php";
+            };
+            "@rewrite".extraConfig = ''
+              rewrite ^/(wiki/)?(.*)$ /index.php?title=$1&$args;
+              rewrite ^$ /index.php;
+            '';
+            "~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$args";
+            "^~ /maintenance/".return = "403";
+            "~ \\.php$" = {
+              fastcgiParams.SCRIPT_FILENAME = "$request_filename";
+              extraConfig = ''
+                fastcgi_pass unix:${config.services.phpfpm.pools.mediawiki.socket};
+              '';
+            };
+            "~ \\.(js|css|ttf|woff2?|png|jpe?g|svg|ico)$" = {
+              tryFiles = "$uri /index.php";
+              extraConfig = ''
+                expires max;
+                log_not_found off;
+                access_log off;
+              '';
+            };
+            "/_.gif".extraConfig = ''
               expires max;
-              log_not_found off;
-              access_log off;
+              empty_gif;
             '';
-          };
-          "/_.gif".extraConfig = ''
-            expires max;
-            empty_gif;
-          '';
-          "^~ /cache/".extraConfig = ''
-            deny all;
-          '';
-          "^~ /resources/".alias = "${stateDir}/resources/";
-        } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
-          "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
-        });
+            "^~ /cache/".extraConfig = ''
+              deny all;
+            '';
+            "^~ /resources/".alias = "${stateDir}/resources/";
+          } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
+            "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
+          });
+        };
       };
     };
   };
