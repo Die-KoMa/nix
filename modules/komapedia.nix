@@ -99,6 +99,7 @@ in mkTrivialModule {
           "^~ /cache/".extraConfig = ''
             deny all;
           '';
+          "/resources/".alias = "${stateDir}/resources/";
         } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
           "/images/".alias = "${config.services.mediawiki.uploadsDir}";
         });
