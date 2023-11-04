@@ -2,12 +2,8 @@
 with lib;
 
 let
-  domainName = "42.komapedia.org";
-  extraDomainNames = [
-    # "komapedia.org"
-    # "de.komapedia.org"
-    # "www.komapedia.org"
-  ];
+  domainName = "komapedia.org";
+  extraDomainNames = [ "komapedia.org" "de.komapedia.org" "www.komapedia.org" ];
   stateDir = "/data/mediawiki";
 in mkTrivialModule {
   die-koma.komapedia = {
