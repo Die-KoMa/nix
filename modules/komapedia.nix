@@ -67,15 +67,14 @@ in mkTrivialModule {
     nginx = {
       virtualHosts = {
         komapedia-file = {
-          onlySSL = true;
+          forceSSL = true;
           useACMEHost = config.networking.fqdn;
           serverName = fileDomainName;
           serverAliases = extraFileDomainNames;
 
           locations = {
-            "/" = { tryFiles = "@rewrite"; };
-            "@rewrite".extraConfig = ''
-              rewrite ^/(*.)$ https://${domainName}/wiki/Spezial:Weiterleitung/file/$1 redirect
+            "/".extraConfig = ''
+              rewrite ^/(.*)$ https://${domainName}/wiki/Spezial:Weiterleitung/file/$1 redirect;
             '';
           };
         };
@@ -91,11 +90,14 @@ in mkTrivialModule {
               tryFiles = "$uri $uri/ @rewrite";
               index = "index.php";
             };
+            "^~ /wiki/".extraConfig = ''
+              rewrite ^/wiki/(?<pagename>.*)$ /index.php;
+            '';
             "@rewrite".extraConfig = ''
-              rewrite ^/(wiki/)?(.*)$ /index.php?title=$1&$args;
+              rewrite ^/(.*)$ /index.php?title=$1&$args;
               rewrite ^$ /index.php;
             '';
-            "~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$args";
+            "~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$query_string";
             "^~ /maintenance/".return = "403";
             "~ \\.php$" = {
               fastcgiParams.SCRIPT_FILENAME = "$request_filename";
@@ -121,6 +123,9 @@ in mkTrivialModule {
             "^~ /resources/".alias = "${stateDir}/resources/";
           } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
             "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
+            "^~ /images/deleted".extraConfig = ''
+              deny all;
+            '';
           });
         };
       };
