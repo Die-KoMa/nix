@@ -107,6 +107,9 @@ in mkTrivialModule {
       };
     };
   };
+
+  users.users.nginx.extraGroups = [ "mediawiki" ];
+
   systemd.services.nginx.after = [ "mysql.service" ];
 
 }
