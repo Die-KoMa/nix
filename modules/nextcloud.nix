@@ -34,6 +34,7 @@ let
     koma86 = "/s/4gFEg854HSJoZtf";
     koma87 = "/s/386rSxrDjp36aL6";
     koma88 = "/s/wP5FJkrG93pZsnY";
+    koma89 = "/s/xT2cq4rBpySm9RK";
   };
 in mkTrivialModule {
 
