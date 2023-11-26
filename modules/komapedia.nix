@@ -80,7 +80,7 @@ in mkTrivialModule {
         };
 
         komapedia = {
-          onlySSL = true;
+          forceSSL = true;
           useACMEHost = config.networking.fqdn;
           serverName = domainName;
           serverAliases = extraDomainNames;
