@@ -119,11 +119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1701197096,
-        "narHash": "sha256-FHGNLzhOr89V8I66Z7R7yEKxjmiEWVfTLlAgaPd8hyE=",
+        "lastModified": 1701972570,
+        "narHash": "sha256-+O+YeCQvui+bDSehDi0r3TZ8drinGs5f1v+LTTdrciM=",
         "owner": "Die-KoMa",
         "repo": "mediawiki",
-        "rev": "d8aec606931755737c5e91dd51d60d822fdc0026",
+        "rev": "efe6410e3166956c2882002c9e73a2f561fb113d",
         "type": "github"
       },
       "original": {
@@ -178,11 +178,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1701053011,
-        "narHash": "sha256-8QQ7rFbKFqgKgLoaXVJRh7Ik5LtI3pyBBCfOnNOGkF0=",
+        "lastModified": 1701615100,
+        "narHash": "sha256-7VI84NGBvlCTduw2aHLVB62NvCiZUlALLqBe5v684Aw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5b528f99f73c4fad127118a8c1126b5e003b01a9",
+        "rev": "e9f06adb793d1cca5384907b3b8a4071d5d7cb19",
         "type": "github"
       },
       "original": {
@@ -375,11 +375,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1701127353,
-        "narHash": "sha256-qVNX0wOl0b7+I35aRu78xUphOyELh+mtUp1KBx89K1Q=",
+        "lastModified": 1701728052,
+        "narHash": "sha256-7lOMc3PtW5a55vFReBJLLLOnopsoi1W7MkjJ93jPV4E=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "b1edbf5c0464b4cced90a3ba6f999e671f0af631",
+        "rev": "e91ece6d2cf5a0ae729796b8f0dedceab5107c3d",
         "type": "github"
       },
       "original": {
