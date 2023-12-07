@@ -7,6 +7,7 @@ let
   extraDomainNames = [ ];
   home = "/data/nextcloud";
   shortlinks = {
+    awareness = "/s/PaYHcFKBCDGniRb";
     public = "/s/Li2bQd4q5p8NMCR";
     koma61 = "/s/k4dcMGq5dEqJqLB";
     koma64 = "/s/rMQfoRsQSwmEwCX";
