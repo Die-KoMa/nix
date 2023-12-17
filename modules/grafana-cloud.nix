@@ -1,4 +1,4 @@
-{ mkModule, config, lib, pkgs, liftToNamespace, ... }:
+{ mkModule, config, lib, liftToNamespace, ... }:
 with lib;
 
 mkModule {
@@ -36,6 +36,7 @@ mkModule {
 
     services.grafana-agent = {
       enable = true;
+      extraFlags = [ "-disable-reporting" ];
       credentials = {
         METRICS_REMOTE_WRITE_URL = config.sops.secrets.${cfg.sopsGrafanaMetricsUrlFile}.path;
         METRICS_REMOTE_WRITE_USERNAME = config.sops.secrets.${cfg.sopsGrafanaMetricsUserFile}.path;
