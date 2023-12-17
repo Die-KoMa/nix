@@ -11,6 +11,12 @@ in mkTrivialModule {
   die-koma.komapedia = {
     enable = true;
     inherit stateDir;
+
+    poweredBy.hetzner = {
+      alt = "hosted by HETZNER";
+      logo = "/images/hosted-by-hetzner.png";
+      link = "https://www.hetzner.com/cloud";
+    };
   };
 
   sops.secrets = let
@@ -19,7 +25,7 @@ in mkTrivialModule {
         mode = "0400";
         owner = "mediawiki";
         group = config.services.nginx.group;
-        sopsFile = ../secrets/komapedia.yml;
+        sopsFile = ../../secrets/komapedia.yml;
         restartUnits = [ "phpfpm-mediawiki.service" ];
       } // args);
   in {
@@ -123,6 +129,8 @@ in mkTrivialModule {
             "^~ /resources/".alias = "${stateDir}/resources/";
           } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
             "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
+            "=/images/hosted-by-hetzner.png".alias =
+              ./hosted-by-hetzner-201.png;
             "^~ /images/deleted".extraConfig = ''
               deny all;
             '';
