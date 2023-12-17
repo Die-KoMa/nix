@@ -6,7 +6,7 @@ mkTrivialModule {
   services = {
     mysql = {
       enable = true;
-      package = pkgs.mariadb_1010;
+      package = pkgs.mariadb_1011;
     };
 
     mysqlBackup = {
