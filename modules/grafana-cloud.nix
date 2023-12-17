@@ -49,6 +49,7 @@ mkModule {
           basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
         }];
         integrations.node_exporter = {
+          instance = config.networking.hostName;
           enable_collectors = [
             "systemd"
           ];
