@@ -16,6 +16,8 @@ in mkTrivialModule {
       alt = "hosted by HETZNER";
       logo = "/images/hosted-by-hetzner.png";
       link = "https://www.hetzner.com/cloud";
+      height = 36;
+      width = 103;
     };
   };
 
