@@ -110,12 +110,10 @@ mkModule {
         };
 
         postgresql = {
-          ensureDatabases = [ "mautrix-telegram" ];
+          ensureDatabases = [ bridgeUser ];
           ensureUsers = [{
             name = bridgeUser;
-            ensurePermissions = {
-              "DATABASE \"mautrix-telegram\"" = "ALL PRIVILEGES";
-            };
+            ensureDBOwnership = true;
           }];
         };
 
@@ -169,7 +167,7 @@ mkModule {
               id = "telegram";
               bot_username = "telegrambot";
               bot_displayname = "Telegram bridge bot";
-              database = "postgresql:///mautrix-telegram";
+              database = "postgresql:///${bridgeUser}";
             };
             bridge = {
               authless_portals = false;
