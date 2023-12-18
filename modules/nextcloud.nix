@@ -67,7 +67,7 @@ in mkTrivialModule {
   services.nextcloud = {
     enable = true;
     hostName = domainName;
-    package = pkgs.nextcloud27;
+    package = pkgs.nextcloud28;
     https = true;
     database.createLocally = true;
     config = {
