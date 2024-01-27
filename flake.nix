@@ -69,6 +69,10 @@
               sopsImportKeysHook
               exec ${pkgs.sops}/bin/sops $@
             '';
+            dnscontrol-wrapper = pkgs.writeShellScript "dnscontrol-wrapper" ''
+              pushd ${./dns}
+              exec ${pkgs.sops}/bin/sops exec-env creds.yaml "${pkgs.dnscontrol}/bin/dnscontrol $@"
+            '';
           in {
             sops-rekey = {
               type = "app";
@@ -77,6 +81,10 @@
             sops = {
               type = "app";
               program = "${sops-wrapper}";
+            };
+            dnscontrol = {
+              type = "app";
+              program = "${dnscontrol-wrapper}";
             };
           });
 
