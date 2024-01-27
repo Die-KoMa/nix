@@ -70,7 +70,7 @@
               exec ${pkgs.sops}/bin/sops $@
             '';
             dnscontrol-wrapper = pkgs.writeShellScript "dnscontrol-wrapper" ''
-              pushd ${./dns}
+              cd ${./dns}
               exec ${pkgs.sops}/bin/sops exec-env creds.yaml "${pkgs.dnscontrol}/bin/dnscontrol $@"
             '';
           in {
