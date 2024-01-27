@@ -67,7 +67,7 @@
               export sopsPGPKeyDirs="${concatStringsSep " " sopsPGPKeyDirs}"
               source ${pkgs.sops-import-keys-hook}/nix-support/setup-hook
               sopsImportKeysHook
-              exec ${pkgs.sops}/bin/sops $@
+              exec ${pkgs.sops}/bin/sops "$@"
             '';
             dnscontrol-wrapper = pkgs.writeShellScript "dnscontrol-wrapper" ''
               cd ${./dns}
