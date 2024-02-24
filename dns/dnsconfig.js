@@ -42,9 +42,6 @@ function HOST(record_name, host, options) {
     if (host == "brausefroschlg") {
         return [A(record_name, "141.30.30.154", options || [])];
     }
-    if (host == "honigkuchenpferd") {
-        return [A(record_name, "131.234.28.83", options || [])];
-    }
     PANIC("HOST with unknown hostname: " + host);
 }
 
@@ -75,26 +72,19 @@ D(
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
 
-    HOST("*", "honigkuchenpferd"),
-
     HOST("brausefrosch.hosts", "brausefrosch"),
     HOST("brausefroschlg.hosts", "brausefroschlg"),
-    HOST("honigkuchenpferd.hosts", "honigkuchenpferd"),
-
-    CNAME_HOST("51", "honigkuchenpferd"),
-    CNAME_HOST("*.51", "honigkuchenpferd"),
 
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
-    CNAME_HOST("komapedia", "honigkuchenpferd"),
     CNAME_HOST("matrix.brausefrosch", "brausefroschlg", TTL(300)),
-    CNAME_HOST("wiki", "honigkuchenpferd"),
 
     CNAME_ACME("brausefrosch", "brausefrosch"),
     CNAME_ACME("brausefroschlg", "brausefroschlg"),
     CNAME_ACME("cloud", "brausefrosch"),
     CNAME_ACME("matrix", "brausefroschlg", TTL(300)),
     CNAME_ACME("new", "brausefrosch"),
+
     CNAME_ACME("www", "brausefrosch"),
 
     []
