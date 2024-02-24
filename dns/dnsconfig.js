@@ -87,13 +87,13 @@ D(
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
     CNAME_HOST("komapedia", "honigkuchenpferd"),
-    CNAME_HOST("matrix.brausefrosch", "brausefroschlg"),
+    CNAME_HOST("matrix.brausefrosch", "brausefroschlg", TTL(300)),
     CNAME_HOST("wiki", "honigkuchenpferd"),
 
     CNAME_ACME("brausefrosch", "brausefrosch"),
     CNAME_ACME("brausefroschlg", "brausefroschlg"),
     CNAME_ACME("cloud", "brausefrosch"),
-    CNAME_ACME("matrix", "brausefroschlg"),
+    CNAME_ACME("matrix", "brausefroschlg", TTL(300)),
     CNAME_ACME("new", "brausefrosch"),
     CNAME_ACME("www", "brausefrosch"),
 
