@@ -26,6 +26,11 @@ mkMachine { } ({ pkgs, config, ... }: {
     };
   };
 
+  wat.thelegy.backup = {
+    enable = true;
+    borgbaseRepo = "lg0ttakp";
+  };
+
   boot.loader = {
     timeout = 5;
     systemd-boot = {
