@@ -29,6 +29,7 @@ mkMachine { } ({ pkgs, config, ... }: {
   wat.thelegy.backup = {
     enable = true;
     borgbaseRepo = "lg0ttakp";
+    extraExcludes = [ "/var/lib/postgresql" ];
   };
 
   boot.loader = {
