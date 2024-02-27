@@ -36,6 +36,7 @@ mkMachine { } ({ lib, pkgs, config, ... }:
 
     wat.thelegy.backup = {
       enable = true;
+      borgbaseRepo = "xprokp58";
       extraReadWritePaths = [ "/.backup-snapshots" "/data/.backup-snapshots" ];
     };
 
