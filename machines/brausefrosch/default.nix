@@ -24,32 +24,25 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       homepage.enable = true;
       komapedia.enable = true;
       nextcloud.enable = true;
-      # matrix-bridge = {
-      #   enable = true;
-      #   domain = "die-koma.org";
-      #   serverName = "matrix.die-koma.org";
-      #   ACMEhost = "brausefrosch.die-koma.org";
-      #   port = 8008;
-      # };
+      matrix-bridge = {
+        enable = true;
+        domain = "die-koma.org";
+        serverName = "matrix.die-koma.org";
+        ACMEhost = "brausefrosch.die-koma.org";
+        port = 8008;
+      };
       nginx.enable = true;
     };
 
     wat.thelegy.backup = {
       enable = true;
-      extraReadWritePaths = [
-        "/.backup-snapshots"
-        "/data/.backup-snapshots"
-      ];
+      extraReadWritePaths = [ "/.backup-snapshots" "/data/.backup-snapshots" ];
     };
 
     fileSystems."/data" = {
       device = "/dev/disk/by-label/data";
       fsType = "btrfs";
-      options = [
-        "compress=zstd"
-        "discard=async"
-        "noatime"
-      ];
+      options = [ "compress=zstd" "discard=async" "noatime" ];
     };
 
     services.nginx.virtualHosts.homepage = let
