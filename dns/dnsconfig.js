@@ -104,7 +104,6 @@ D(
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
 
-    CNAME_ACME("42", "brausefrosch"),
     CNAME_ACME("de", "brausefrosch"),
     CNAME_ACME("file", "brausefrosch"),
     CNAME_ACME("www", "brausefrosch"),
