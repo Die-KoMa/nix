@@ -60,6 +60,7 @@ D(
     DnsProvider("desec"),
     NAMESERVER_TTL("1d"),
     IGNORE("_acme-challenge.*", "TXT"),
+    A("_acme-challenge.brausefrosch", "127.0.0.1"),
     []
 );
 
@@ -107,6 +108,5 @@ D(
     CNAME_ACME("de", "brausefrosch"),
     CNAME_ACME("file", "brausefrosch"),
     CNAME_ACME("www", "brausefrosch"),
-
     []
 );
