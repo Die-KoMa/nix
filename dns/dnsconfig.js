@@ -77,12 +77,10 @@ D(
 
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
-    CNAME_HOST("matrix.brausefrosch", "brausefroschlg", TTL(300)),
-
     CNAME_ACME("brausefrosch", "brausefrosch"),
     CNAME_ACME("brausefroschlg", "brausefroschlg"),
     CNAME_ACME("cloud", "brausefrosch"),
-    CNAME_ACME("matrix", "brausefroschlg", TTL(300)),
+    CNAME_ACME("matrix", "brausefrosch", TTL(300)),
     CNAME_ACME("new", "brausefrosch"),
 
     CNAME_ACME("www", "brausefrosch"),
