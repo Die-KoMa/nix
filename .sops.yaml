@@ -6,37 +6,27 @@ keys:
   - &uschi FBF05D7DC0A652DD6732006E8747E256FDDE9F67
 
   - &brausefrosch 0cdde9adfa50e62e7387cd45038ea1fb733e94e0
-  - &brausefroschlg 707718295c9ff9db52ca5ee9ff27c24dca36266b
 
 creation_rules:
   - path_regex: machines/brausefrosch/.*
     key_groups:
-    - pgp:
-      - *brausefrosch
-      - *beini
-      - *mmarx
-      - *magnus
-      - *nerf
-  - path_regex: machines/brausefroschlg/.*
-    key_groups:
-    - pgp:
-      - *brausefroschlg
-      - *beini
-      - *mmarx
-      - *magnus
-      - *nerf
+      - pgp:
+          - *brausefrosch
+          - *beini
+          - *mmarx
+          - *magnus
+          - *nerf
   - path_regex: secrets/.*
     key_groups:
-    - pgp:
-      - *brausefrosch
-      - *brausefroschlg
-      - *beini
-      - *mmarx
-      - *magnus
-      - *nerf
+      - pgp:
+          - *brausefrosch
+          - *beini
+          - *mmarx
+          - *magnus
+          - *nerf
   - key_groups:
-    - pgp:
-      - *beini
-      - *mmarx
-      - *magnus
-      - *nerf
+      - pgp:
+          - *beini
+          - *mmarx
+          - *magnus
+          - *nerf
