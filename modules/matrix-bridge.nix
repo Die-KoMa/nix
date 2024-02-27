@@ -48,8 +48,7 @@ mkModule {
         "m.homeserver".base_url = "https://${cfg.serverName}";
         "m.identity_server" = { };
       };
-      serverConfig."m.server" =
-        "${config.services.matrix-synapse.settings.server_name}:443";
+      serverConfig."m.server" = "${cfg.serverName}:443";
 
       mkWellKnown = data: ''
         add_header Content-Type application/json;
