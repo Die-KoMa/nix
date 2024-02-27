@@ -44,26 +44,4 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       fsType = "btrfs";
       options = [ "compress=zstd" "discard=async" "noatime" ];
     };
-
-    services.nginx.virtualHosts.homepage = let
-      clientConfig = {
-        "m.homeserver".base_url = "https://matrix.die-koma.org";
-        "m.identity_server" = { };
-      };
-      serverConfig."m.server" = "matrix.die-koma.org:443";
-
-      mkWellKnown = data: ''
-        add_header Content-Type application/json;
-        add_header Access-Control-Allow-Origin *;
-        add_header Access-Control-Allow-Methods 'GET, POST, PUT, DELETE, OPTIONS';
-        add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type, Authorization';
-        return 200 '${builtins.toJSON data}';
-      '';
-    in {
-      locations."/.well-known/matrix/server".extraConfig =
-        mkWellKnown serverConfig;
-      locations."/.well-known/matrix/client".extraConfig =
-        mkWellKnown clientConfig;
-    };
-
   })
