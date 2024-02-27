@@ -60,6 +60,7 @@ D(
     DnsProvider("desec"),
     NAMESERVER_TTL("1d"),
     IGNORE("_acme-challenge.*", "TXT"),
+    // we need _some_ record here so that lego doesn't fail because it receives an NXDOMAIN
     A("_acme-challenge.brausefrosch", "127.0.0.1"),
     []
 );
