@@ -2,6 +2,7 @@ var REG_NONE = NewRegistrar("none");
 var REG_INWX = NewRegistrar("inwx");
 var DNS_INWX = NewDnsProvider("inwx");
 var DNS_HE = NewDnsProvider("he");
+var DNS_DESEC = NewDnsProvider("desec");
 
 function ACME(record_name, target, options) {
     record_name =
@@ -54,14 +55,27 @@ D(
 );
 
 D(
+    "desec.die-koma.org",
+    REG_NONE,
+    DnsProvider("desec"),
+    NAMESERVER_TTL("1d"),
+    IGNORE("_acme-challenge.*", "TXT"),
+    []
+);
+
+D(
     "die-koma.org",
     REG_NONE,
     DnsProvider("inwx"),
+
     NS("he", "ns1.he.net."),
     NS("he", "ns2.he.net."),
     NS("he", "ns3.he.net."),
     NS("he", "ns4.he.net."),
     NS("he", "ns5.he.net."),
+
+    NS("desec", "ns1.desec.io."),
+    NS("desec", "ns2.desec.org."),
 
     MX("@", 0, "mx0.stugen.de."),
     MX("@", 0, "mx1.stugen.de."),
