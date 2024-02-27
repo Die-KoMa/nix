@@ -64,7 +64,10 @@ mkModule {
     in {
       networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-      wat.KoMa.postgresql.enable = true;
+      wat.KoMa = {
+        postgresql.enable = true;
+        acme.extraDomainNames = [ "matrix.die-koma.org" ];
+      };
 
       environment.systemPackages = let
         synapse-init-script = pkgs.writeShellScriptBin "synapse-init-db" ''
