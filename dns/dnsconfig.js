@@ -39,9 +39,6 @@ function HOST(record_name, host, options) {
             AAAA(record_name, "2a01:4f8:c012:de06::1", options || []),
         ];
     }
-    if (host == "brausefroschlg") {
-        return [A(record_name, "141.30.30.154", options || [])];
-    }
     PANIC("HOST with unknown hostname: " + host);
 }
 
@@ -73,14 +70,12 @@ D(
     ACME("@", "brausefrosch"),
 
     HOST("brausefrosch.hosts", "brausefrosch"),
-    HOST("brausefroschlg.hosts", "brausefroschlg"),
 
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
     CNAME_ACME("brausefrosch", "brausefrosch"),
-    CNAME_ACME("brausefroschlg", "brausefroschlg"),
     CNAME_ACME("cloud", "brausefrosch"),
-    CNAME_ACME("matrix", "brausefrosch", TTL(300)),
+    CNAME_ACME("matrix", "brausefrosch"),
     CNAME_ACME("new", "brausefrosch"),
 
     CNAME_ACME("www", "brausefrosch"),
