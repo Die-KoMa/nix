@@ -10,7 +10,7 @@ function ACME(record_name, target, options) {
     target =
         target[target.length - 1] == "."
             ? target
-            : target + ".he.die-koma.org.";
+            : target + ".desec.die-koma.org.";
     return [CNAME(record_name, "_acme-challenge." + target, options || [])];
 }
 

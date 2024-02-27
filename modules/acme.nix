@@ -22,7 +22,7 @@ mkModule {
 
       sopsCredentialsFile = mkOption {
         type = types.str;
-        default = "acme-hedns-tokens";
+        default = "acme-desec-token";
       };
 
       reloadUnits = mkOption {
@@ -48,7 +48,7 @@ mkModule {
       preliminarySelfsigned = false;
       certs.${cfg.defaultCertName} = {
         inherit (cfg) extraDomainNames;
-        dnsProvider = "hurricane";
+        dnsProvider = "desec";
         credentialsFile = config.sops.secrets.${cfg.sopsCredentialsFile}.path;
         postRun = mkIf (length cfg.reloadUnits > 0) ''
           systemctl reload-or-restart ${concatStringsSep " " cfg.reloadUnits}
