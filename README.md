@@ -1,16 +1,5 @@
 # The New Infrastructure eXperience
 
-<!--toc:start-->
-- [The New Infrastructure eXperience](#the-new-infrastructure-experience)
-  - [Deployment](#deployment)
-  - [Updating](#updating)
-  - [Upgrading](#upgrading)
-  - [Machines](#machines)
-  - [Modules](#modules)
-  - [Secrets](#secrets)
-  - [DNS](#dns)
-<!--toc:end-->
-
 This repository contains the configuration for the
 [KoMa](https://die-koma.org) computing infrastructure. We run NixOS,
 with all configuration exposed through this flake.
