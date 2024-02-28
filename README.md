@@ -46,7 +46,7 @@ encrypted secrets.
 
 ## DNS
 
-We use [dnscontrol])(https://dnscontrol.org) to manage our DNS
+We use [dnscontrol](https://dnscontrol.org) to manage our DNS
 zones. The main zones are `die-koma.org` and `komapedia.org`, which
 are both managed at [INWX](https://inwx.de). We use a
 [deSEC](https://desec.io) zone for dynamic DNS-01 ACME challenges. Use
