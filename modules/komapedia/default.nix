@@ -132,6 +132,7 @@ in mkTrivialModule {
               "${config.services.mediawiki.finalPackage}/share/mediawiki/resources/";
           } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
             "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
+            "=/favicon.ico".alias = ./komapedia-favicon.ico;
             "=/images/hosted-by-hetzner.png".alias =
               ./hosted-by-hetzner-201.png;
             "=/images/komapedia-logo.png".alias = ./komapedia-logo.png;
