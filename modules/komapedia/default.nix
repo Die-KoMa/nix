@@ -128,11 +128,13 @@ in mkTrivialModule {
             "^~ /cache/".extraConfig = ''
               deny all;
             '';
-            "^~ /resources/".alias = "${stateDir}/resources/";
+            "^~ /resources/".alias =
+              "${config.services.mediawiki.finalPackage}/share/mediawiki/resources/";
           } // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
             "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
             "=/images/hosted-by-hetzner.png".alias =
               ./hosted-by-hetzner-201.png;
+            "=/images/komapedia-logo.png".alias = ./komapedia-logo.png;
             "^~ /images/deleted".extraConfig = ''
               deny all;
             '';
