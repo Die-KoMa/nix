@@ -1,4 +1,10 @@
-{ mkTrivialModule, config, pkgs, lib, ... }:
+{
+  mkTrivialModule,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -36,8 +42,10 @@ let
     koma87 = "/s/386rSxrDjp36aL6";
     koma88 = "/s/wP5FJkrG93pZsnY";
     koma89 = "/s/xT2cq4rBpySm9RK";
+    koma90 = "/s/RbKLAQXSn25PGTY";
   };
-in mkTrivialModule {
+in
+mkTrivialModule {
 
   wat.KoMa = {
     nginx.enable = true;
@@ -86,10 +94,8 @@ in mkTrivialModule {
     forceSSL = true;
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     serverAliases = extraDomainNames;
-    locations = mapAttrs' (link: target:
-      nameValuePair "/${link}" {
-        return = "301 https://${domainName}${target}";
-      }) shortlinks;
+    locations = mapAttrs' (
+      link: target: nameValuePair "/${link}" { return = "301 https://${domainName}${target}"; }
+    ) shortlinks;
   };
-
 }
