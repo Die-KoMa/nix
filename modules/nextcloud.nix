@@ -82,8 +82,10 @@ mkTrivialModule {
       dbtype = "mysql";
       adminpassFile = config.sops.secrets.nextcloud-admin-pass.path;
       adminuser = "admin";
-      extraTrustedDomains = extraDomainNames;
-      defaultPhoneRegion = "DE";
+    };
+    settings = {
+      trusted_domains = extraDomainNames;
+      default_phone_region = "DE";
     };
     configureRedis = true;
     home = home;
