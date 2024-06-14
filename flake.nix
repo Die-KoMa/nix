@@ -105,6 +105,8 @@
 
         nixosConfigurations = findMachines ./machines;
 
+        formatter = withPkgs (pkgs: pkgs.treefmt);
+
       };
     });
 
