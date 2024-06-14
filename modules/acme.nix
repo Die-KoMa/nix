@@ -1,8 +1,16 @@
-{ mkModule, config, lib, pkgs, liftToNamespace, ... }:
+{
+  mkModule,
+  config,
+  lib,
+  pkgs,
+  liftToNamespace,
+  ...
+}:
 with lib;
 
 mkModule {
-  options = cfg:
+  options =
+    cfg:
     liftToNamespace {
 
       staging = mkOption {
@@ -29,7 +37,6 @@ mkModule {
         type = types.listOf types.str;
         default = [ ];
       };
-
     };
   config = cfg: {
 
@@ -42,8 +49,7 @@ mkModule {
 
     security.acme = {
       acceptTerms = true;
-      defaults.server = mkIf (cfg.staging)
-        "https://acme-staging-v02.api.letsencrypt.org/directory";
+      defaults.server = mkIf (cfg.staging) "https://acme-staging-v02.api.letsencrypt.org/directory";
       defaults.email = "homepage@die-koma.org";
       preliminarySelfsigned = false;
       certs.${cfg.defaultCertName} = {
@@ -55,6 +61,5 @@ mkModule {
         '';
       };
     };
-
   };
 }

@@ -1,19 +1,25 @@
-{ mkModule, config, pkgs, lib, liftToNamespace, ... }:
+{
+  mkModule,
+  config,
+  pkgs,
+  lib,
+  liftToNamespace,
+  ...
+}:
 
 with lib;
 
 mkModule {
-  options = cfg:
+  options =
+    cfg:
     liftToNamespace {
       serverName = mkOption {
-        description =
-          "Server name for the synapse server (the actual fqdn of the server)";
+        description = "Server name for the synapse server (the actual fqdn of the server)";
         type = types.str;
       };
 
       domain = mkOption {
-        description =
-          "domain name for the synapse server, this is what appears in room and user id. It only needs to host .well-known";
+        description = "domain name for the synapse server, this is what appears in room and user id. It only needs to host .well-known";
         type = types.str;
       };
 
@@ -42,7 +48,8 @@ mkModule {
       };
     };
 
-  config = cfg:
+  config =
+    cfg:
     let
       clientConfig = {
         "m.homeserver".base_url = "https://${cfg.serverName}";
@@ -60,25 +67,31 @@ mkModule {
 
       bridgeUser = "mautrix-telegram";
       bridgeGroup = "mautrix-telegram";
-    in {
-      networking.firewall.allowedTCPPorts = [ 80 443 ];
+    in
+    {
+      networking.firewall.allowedTCPPorts = [
+        80
+        443
+      ];
 
       wat.KoMa = {
         postgresql.enable = true;
         acme.extraDomainNames = [ "matrix.die-koma.org" ];
       };
 
-      environment.systemPackages = let
-        synapse-init-script = pkgs.writeShellScriptBin "synapse-init-db" ''
-          ${config.services.postgresql.package}/bin/psql -f- <<EOF
-            CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
-            CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-              TEMPLATE template0
-              LC_COLLATE = "C"
-              LC_CTYPE = "C";
-          EOF
-        '';
-      in [ synapse-init-script ];
+      environment.systemPackages =
+        let
+          synapse-init-script = pkgs.writeShellScriptBin "synapse-init-db" ''
+            ${config.services.postgresql.package}/bin/psql -f- <<EOF
+              CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+              CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+                TEMPLATE template0
+                LC_COLLATE = "C"
+                LC_CTYPE = "C";
+            EOF
+          '';
+        in
+        [ synapse-init-script ];
 
       services = {
         matrix-synapse = {
@@ -89,18 +102,25 @@ mkModule {
             enable_registration = false;
             database.name = "psycopg2";
 
-            listeners = [{
-              port = cfg.port;
-              bind_addresses = [ "::1" ];
-              type = "http";
-              tls = false;
-              x_forwarded = true;
+            listeners = [
+              {
+                port = cfg.port;
+                bind_addresses = [ "::1" ];
+                type = "http";
+                tls = false;
+                x_forwarded = true;
 
-              resources = [{
-                names = [ "client" "federation" ];
-                compress = false;
-              }];
-            }];
+                resources = [
+                  {
+                    names = [
+                      "client"
+                      "federation"
+                    ];
+                    compress = false;
+                  }
+                ];
+              }
+            ];
             app_service_config_files = [
               # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
               # and the access rights needs to be fixed.
@@ -113,28 +133,27 @@ mkModule {
 
         postgresql = {
           ensureDatabases = [ bridgeUser ];
-          ensureUsers = [{
-            name = bridgeUser;
-            ensureDBOwnership = true;
-          }];
+          ensureUsers = [
+            {
+              name = bridgeUser;
+              ensureDBOwnership = true;
+            }
+          ];
         };
 
         nginx = {
           enable = true;
           recommendedTlsSettings = true;
           recommendedOptimisation = true;
-          recommendedGzipSettings =
-            false; # potential security implications in combination with TLS
+          recommendedGzipSettings = false; # potential security implications in combination with TLS
           recommendedProxySettings = true;
 
           virtualHosts = {
             "${cfg.domain}" = {
               useACMEHost = "${cfg.ACMEhost}";
               forceSSL = true;
-              locations."/.well-known/matrix/server".extraConfig =
-                mkWellKnown serverConfig;
-              locations."/.well-known/matrix/client".extraConfig =
-                mkWellKnown clientConfig;
+              locations."/.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+              locations."/.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
             };
             "${cfg.serverName}" = {
               useACMEHost = "${cfg.ACMEhost}";
@@ -142,10 +161,8 @@ mkModule {
               locations."/".extraConfig = ''
                 return 404;
               '';
-              locations."/_matrix".proxyPass =
-                "http://[::1]:${toString cfg.port}";
-              locations."/_synapse/client".proxyPass =
-                "http://[::1]:${toString cfg.port}";
+              locations."/_matrix".proxyPass = "http://[::1]:${toString cfg.port}";
+              locations."/_synapse/client".proxyPass = "http://[::1]:${toString cfg.port}";
             };
           };
         };
@@ -200,19 +217,23 @@ mkModule {
         serviceConfig = {
           User = bridgeUser;
           Group = bridgeGroup;
-
         };
 
         path = with pkgs; [ lottieconverter ];
       };
 
-      sops.secrets = let
-        mkSecret = name: {
-          mode = "0400";
-          owner = "matrix-synapse";
-          group = "matrix-synapse";
-          sopsFile = ../secrets/matrix.yml;
-        };
-      in genAttrs [ "mautrix-env-file" "synapse" ] mkSecret;
+      sops.secrets =
+        let
+          mkSecret = name: {
+            mode = "0400";
+            owner = "matrix-synapse";
+            group = "matrix-synapse";
+            sopsFile = ../secrets/matrix.yml;
+          };
+        in
+        genAttrs [
+          "mautrix-env-file"
+          "synapse"
+        ] mkSecret;
     };
 }

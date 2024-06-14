@@ -1,4 +1,9 @@
-{ mkTrivialModule, pkgs, config, ... }:
+{
+  mkTrivialModule,
+  pkgs,
+  config,
+  ...
+}:
 
 mkTrivialModule {
 
@@ -49,5 +54,4 @@ mkTrivialModule {
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     globalRedirect = "die-koma.org";
   };
-
 }

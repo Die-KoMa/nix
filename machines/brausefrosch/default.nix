@@ -1,7 +1,14 @@
 { mkMachine, flakes, ... }:
 
-mkMachine { } ({ lib, pkgs, config, ... }:
-  with lib; {
+mkMachine { } (
+  {
+    lib,
+    pkgs,
+    config,
+    ...
+  }:
+  with lib;
+  {
 
     system.stateVersion = "23.05";
 
@@ -16,8 +23,11 @@ mkMachine { } ({ lib, pkgs, config, ... }:
       acme = {
         enable = true;
         staging = false;
-        extraDomainNames =
-          [ "die-koma.org" "new.die-koma.org" "www.die-koma.org" ];
+        extraDomainNames = [
+          "die-koma.org"
+          "new.die-koma.org"
+          "www.die-koma.org"
+        ];
       };
       base.enable = true;
       grafana-cloud.enable = true;
@@ -37,12 +47,20 @@ mkMachine { } ({ lib, pkgs, config, ... }:
     wat.thelegy.backup = {
       enable = true;
       borgbaseRepo = "xprokp58";
-      extraReadWritePaths = [ "/.backup-snapshots" "/data/.backup-snapshots" ];
+      extraReadWritePaths = [
+        "/.backup-snapshots"
+        "/data/.backup-snapshots"
+      ];
     };
 
     fileSystems."/data" = {
       device = "/dev/disk/by-label/data";
       fsType = "btrfs";
-      options = [ "compress=zstd" "discard=async" "noatime" ];
+      options = [
+        "compress=zstd"
+        "discard=async"
+        "noatime"
+      ];
     };
-  })
+  }
+)
