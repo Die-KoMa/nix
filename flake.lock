@@ -135,11 +135,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718389299,
-        "narHash": "sha256-VGic57Kgby8Li5aqvOaBEItMmQ7IzNoX4iz+/wo+iRY=",
+        "lastModified": 1718390548,
+        "narHash": "sha256-YKz89K2N8pd8HjKXHl+4asEiemQd4RMMU8yxTP+FjNg=",
         "owner": "Die-KoMa",
         "repo": "mediawiki",
-        "rev": "b80ddd6d09afc895e7ce67cbe4c60ac78abea513",
+        "rev": "27be61621d3c1e701b6814fd03e60c6891a470ff",
         "type": "github"
       },
       "original": {
