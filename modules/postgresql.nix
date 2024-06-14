@@ -1,4 +1,10 @@
-{ mkTrivialModule, config, pkgs, lib, ... }:
+{
+  mkTrivialModule,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -19,5 +25,4 @@ mkTrivialModule {
     "d /var/lib/postgresql 0750 postgres postgres - -"
     "H /var/lib/postgresql - - - - +C"
   ];
-
 }

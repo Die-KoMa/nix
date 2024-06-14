@@ -1,15 +1,21 @@
-{ mkModule, config, lib, liftToNamespace, ... }:
+{
+  mkModule,
+  config,
+  lib,
+  liftToNamespace,
+  ...
+}:
 with lib;
 
 mkModule {
-  options = cfg:
+  options =
+    cfg:
     liftToNamespace {
 
       useACMEHost = mkOption {
         type = types.str;
         default = config.networking.fqdn;
       };
-
     };
   config = cfg: {
 
@@ -33,7 +39,9 @@ mkModule {
 
     users.users.nginx.extraGroups = [ "acme" ];
 
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
-
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
 }

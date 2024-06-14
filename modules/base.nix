@@ -1,4 +1,10 @@
-{ lib, config, pkgs, mkTrivialModule, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  mkTrivialModule,
+  ...
+}:
 with lib;
 
 mkTrivialModule {
@@ -14,8 +20,7 @@ mkTrivialModule {
   # Restore systemd default
   services.logind.killUserProcesses = mkDefault true;
 
-  sops.defaultSopsFile =
-    config.wat.machines.${config.networking.hostName}."secrets.yml".file;
+  sops.defaultSopsFile = config.wat.machines.${config.networking.hostName}."secrets.yml".file;
   sops.defaultSopsFormat = "yaml";
 
   networking.domain = mkDefault "die-koma.org";
@@ -100,4 +105,3 @@ mkTrivialModule {
     w3m
   ];
 }
-

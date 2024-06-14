@@ -1,8 +1,15 @@
-{ mkModule, config, lib, liftToNamespace, ... }:
+{
+  mkModule,
+  config,
+  lib,
+  liftToNamespace,
+  ...
+}:
 with lib;
 
 mkModule {
-  options = cfg:
+  options =
+    cfg:
     liftToNamespace {
 
       sopsGrafanaMetricsUrlFile = mkOption {
@@ -19,20 +26,21 @@ mkModule {
         type = types.str;
         default = "grafana-metrics-password";
       };
-
     };
   config = cfg: {
 
-    sops.secrets = genAttrs [
-      cfg.sopsGrafanaMetricsUrlFile
-      cfg.sopsGrafanaMetricsUserFile
-      cfg.sopsGrafanaMetricsPasswordFile
-    ]
-      (_: {
-        format = "yaml";
-        mode = "0600";
-        restartUnits = [ "grafana-agent.service" ];
-      });
+    sops.secrets =
+      genAttrs
+        [
+          cfg.sopsGrafanaMetricsUrlFile
+          cfg.sopsGrafanaMetricsUserFile
+          cfg.sopsGrafanaMetricsPasswordFile
+        ]
+        (_: {
+          format = "yaml";
+          mode = "0600";
+          restartUnits = [ "grafana-agent.service" ];
+        });
 
     services.grafana-agent = {
       enable = true;
@@ -43,19 +51,18 @@ mkModule {
         metrics_remote_write_password = config.sops.secrets.${cfg.sopsGrafanaMetricsPasswordFile}.path;
       };
       settings = {
-        metrics.global.remote_write = [{
-          url = "\${METRICS_REMOTE_WRITE_URL}";
-          basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
-          basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
-        }];
+        metrics.global.remote_write = [
+          {
+            url = "\${METRICS_REMOTE_WRITE_URL}";
+            basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
+            basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
+          }
+        ];
         integrations.node_exporter = {
           instance = config.networking.hostName;
-          enable_collectors = [
-            "systemd"
-          ];
+          enable_collectors = [ "systemd" ];
         };
       };
     };
-
   };
 }
