@@ -3,6 +3,7 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.05-small";
 
     komapedia = {
       url = "github:Die-KoMa/mediawiki";
@@ -70,7 +71,12 @@
           (attrValues flakes.komapedia.nixosModules)
           (attrValues flakes.yaner.nixosModules)
         ];
-        loadOverlays = concatLists [ [ flakes.yaner.overlay ] ];
+        loadOverlays = concatLists [
+          [
+            flakes.yaner.overlay
+            (final: prev: { inherit (flakes.nixpkgs-small.legacyPackages.x86_64-linux) openssh; })
+          ]
+        ];
         outputs = {
           apps = withPkgs (
             pkgs:
