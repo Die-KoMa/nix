@@ -72,25 +72,32 @@ mkTrivialModule {
     servers.nextcloud.save = [ ];
   };
 
-  services.nextcloud = {
-    enable = true;
-    hostName = domainName;
-    package = pkgs.nextcloud29;
-    https = true;
-    database.createLocally = true;
-    config = {
-      dbtype = "mysql";
-      adminpassFile = config.sops.secrets.nextcloud-admin-pass.path;
-      adminuser = "admin";
+  services.nextcloud =
+    let
+      package = pkgs.nextcloud29;
+    in
+    {
+      enable = true;
+      hostName = domainName;
+      inherit package;
+      https = true;
+      database.createLocally = true;
+      config = {
+        dbtype = "mysql";
+        adminpassFile = config.sops.secrets.nextcloud-admin-pass.path;
+        adminuser = "admin";
+      };
+      settings = {
+        trusted_domains = extraDomainNames;
+        default_phone_region = "DE";
+      };
+      configureRedis = true;
+      home = home;
+      secretFile = config.sops.secrets.nextcloud-secrets.path;
+      extraApps = {
+        inherit (package.packages.apps) calendar;
+      };
     };
-    settings = {
-      trusted_domains = extraDomainNames;
-      default_phone_region = "DE";
-    };
-    configureRedis = true;
-    home = home;
-    secretFile = config.sops.secrets.nextcloud-secrets.path;
-  };
 
   services.nginx.virtualHosts.${domainName} = {
     forceSSL = true;
