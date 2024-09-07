@@ -115,6 +115,8 @@
             default = sops;
           });
 
+          overlays.default = import ./pkgs flakes;
+
           nixosModules = findModules [ "KoMa" ] ./modules;
 
           nixosConfigurations = findMachines ./machines;
