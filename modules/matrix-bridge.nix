@@ -213,6 +213,10 @@ mkModule {
         };
       };
 
+      nixpkgs.config.permittedInsecurePackages = [
+        "olm-3.2.16" # only used by mautrix-telegram, which bridges to unencrypted telegram groups
+      ];
+
       systemd.services.mautrix-telegram = {
         serviceConfig = {
           User = bridgeUser;
