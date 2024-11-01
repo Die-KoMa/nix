@@ -111,6 +111,9 @@ mkTrivialModule {
           serverName = domainName;
           serverAliases = extraDomainNames;
           root = "${config.services.mediawiki.finalPackage}/share/mediawiki/";
+          extraConfig = ''
+            client_max_body_size 100m;
+          '';
           locations =
             {
               "/" = {
