@@ -40,7 +40,7 @@ mkModule {
             hostname = config.networking.fqdn;
             tls = {
               enable = true;
-              implicit = true;
+              implicit = true; # force SSL instead of STARTTLS
             };
             listener = {
               smtp = {
@@ -50,10 +50,12 @@ mkModule {
               submission = {
                 protocol = "smtp";
                 bind = "[::]:465";
+                tls.implicit = true;
               };
               imaps = {
                 protocol = "imap";
                 bind = "[::]:993";
+                tls.implicit = true;
               };
               management = {
                 bind = [ managementURL ];
