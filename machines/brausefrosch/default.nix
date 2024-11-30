@@ -10,7 +10,7 @@ mkMachine { } (
   with lib;
   {
 
-    system.stateVersion = "23.05";
+    system.stateVersion = "24.11";
 
     wat.installer.hcloud = {
       enable = true;
