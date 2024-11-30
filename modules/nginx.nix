@@ -19,7 +19,7 @@ mkModule {
     };
   config = cfg: {
 
-    wat.thelegy.acme.reloadUnits = [ "nginx.service" ];
+    wat.KoMa.acme.reloadUnits = [ "nginx.service" ];
 
     services.nginx = {
       enable = true;

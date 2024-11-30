@@ -42,6 +42,7 @@ mkMachine { } (
         port = 8008;
       };
       nginx.enable = true;
+      stalwart-mail.enable = true;
     };
 
     wat.thelegy.backup = {
