@@ -75,7 +75,7 @@ mkTrivialModule {
 
   services.nextcloud =
     let
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
     in
     {
       enable = true;
