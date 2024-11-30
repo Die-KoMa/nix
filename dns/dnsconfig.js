@@ -86,6 +86,12 @@ D(
     ACME("@", "brausefrosch"),
 
     HOST("brausefrosch.hosts", "brausefrosch"),
+    MX("brausefrosch.hosts", 10, "brausefrosch.hosts.die-koma.org."),
+    TXT("brausefrosch.hosts", "v=spf1 a ra=postmaster -all"),
+    TXT("brausefrosch.hosts", "v=spf1 mx ra=postmaster -all"),
+    TXT("_dmarc.brausefrosch.hosts", "v=DMARC1; p=reject; rua=mailto:postmaster@brausefrosch.die-koma.org; ruf=mailto:postmaster@brausefrosch.die-koma.org"),
+    TXT("202411e._domainkey.brausefrosch.hosts", "v=DKIM1; k=ed25519; h=sha256; p=52Ezg3f5qtQ4FsQ2WK2X/nPUZQSm0n2nby1VuxGq4Q0="),
+    TXT("202411r._domainkey.brausefrosch.hosts", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0kYMvpqBquVENKL39FEljeXVLNAFO4R3ydsyJwZP0rBIGqLegDSD9VBP24mJ6uZLT3g6GXbUkiUon09S2Ta6aPW9OXT8Cy2UJ4QlxaQoBA1w9uIX1PqxMEr4EmKJyfw2Xb1wQvIxO419YRo0evZNvmDSYLv8HLnVfBlVUJsuTMB9DnZ0ng8PSWVZ8UI/wq3VW+VnpwXsdJY4Pmw6iJ3RkNyKexbyISpDZwPjgUBQ+mvnJSG7ISYCNOEkT5auPb6uDSq7BT01eWy5WMA05sqTabPeccdENHq9n/Len2DgAA+7dSrLG2pSfwU9RaCWW4+aMy0W1E5uWwGIDnglikLXRwIDAQAB"),
 
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
@@ -105,6 +111,12 @@ D(
     DnsProvider("inwx"),
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
+
+    MX("@", 10, "brausefrosch.hosts.die-koma.org."),
+    TXT("@", "v=spf1 mx ra=postmaster -all"),
+    TXT("_dmarc", "v=DMARC1; p=reject; rua=mailto:postmaster@komapedia.org; ruf=mailto:postmaster@komapedia.org"),
+    TXT("202411e._domainkey", "v=DKIM1; k=ed25519; h=sha256; p=kPe7mzLvckTRpvIKugKJbzpyiZm15ojeSCP0Ko/Oz0w="),
+    TXT("202411r._domainkey", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyCPH5+cAh6vzGuNeQDfZa/D296+edvyGeb/FGlyg1kJNuafVHEBy4d3Ecpf0nu+kspwdyTxk+hWRmqEV6tkvhtY3e2WryKvaY+0KMQaNZRvaAEF3fJ3sGNwCqFhi7hZe0/wglLKuEup1sWNGGEVH+W+z6zgVnNsxLfY/MoPdR91K7ZK6BFbxqVZbg81tNScOyQFzXrR9T6WVZDrJJw+qQRsqbJqK2TI6CLjzGHsnwAUcc3jZub0ZGPACM/alqlcKknW8UoDnKeVsoMGJJMqjStE9gqwfVXGfrW8EOtggA/0KfrPToKvUzOmLjiDeHUYz0ZEf1p14YCwcLf1yrgkXnQIDAQAB"),
 
     CNAME_ACME("de", "brausefrosch"),
     CNAME_ACME("file", "brausefrosch"),
