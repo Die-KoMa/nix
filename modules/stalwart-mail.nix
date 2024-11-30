@@ -74,6 +74,8 @@ mkModule {
         };
       };
 
+      users.users.stalwart-mail.extraGroups = [ "acme" ];
+
       sops.secrets.${adminSecret} = {
         format = "yaml";
         mode = "0600";
