@@ -38,6 +38,10 @@ mkModule {
         settings = {
           server = {
             hostname = config.networking.fqdn;
+            tls = {
+              enable = true;
+              implicit = true;
+            };
             listener = {
               smtp = {
                 protocol = "smtp";
