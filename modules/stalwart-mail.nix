@@ -82,12 +82,16 @@ mkModule {
         owner = "stalwart-mail";
       };
 
-      systemd.services.stalwart-mail.reload = ''
-        export URL=https://${managementURL}
-        export CREDENTIALS=$(cat ${config.sops.secrets.${adminSecret}.path})
-        stalwart-cli server reload-config
-        stalwart-cli server reload-certificates
-      '';
+      systemd.services.stalwart-mail.reload =
+        let
+          stalwart-cli = "${config.services.stalwart-mail.package}/bin/stalwart-cli";
+        in
+        ''
+          export URL=http://${managementURL}
+          export CREDENTIALS=$(cat ${config.sops.secrets.${adminSecret}.path})
+          ${stalwart-cli} server reload-config
+          ${stalwart-cli} server reload-certificates
+        '';
 
       wat.KoMa.acme.reloadUnits = [ "stalwart-mail.service" ];
 
