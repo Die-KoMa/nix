@@ -17,7 +17,7 @@ mkTrivialModule {
 
   systemd.services.homepage-rollout = {
     startAt = "*:00/5";
-    path = [ pkgs.nixFlakes ];
+    path = [ pkgs.nixVersions.stable ];
     script = ''
       nix --print-build-logs --refresh build --out-link /var/www/homepage/htdocs github:die-koma/die-koma.org/release
     '';
