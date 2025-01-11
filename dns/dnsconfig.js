@@ -43,6 +43,14 @@ function HOST(record_name, host, options) {
     PANIC("HOST with unknown hostname: " + host);
 }
 
+function CAA_LETSENCRYPT(record_name) {
+  return CAA_BUILDER({
+    label: record_name || "@",
+    issue: ["letsencrypt.org;validationmethods=dns-01"],
+    issue_critical: true,
+  });
+}
+
 DEFAULTS(NAMESERVER_TTL("1d"), DefaultTTL("1h"), []);
 
 D(
@@ -69,6 +77,8 @@ D(
     "die-koma.org",
     REG_NONE,
     DnsProvider("inwx"),
+
+    CAA_LETSENCRYPT(),
 
     NS("he", "ns1.he.net."),
     NS("he", "ns2.he.net."),
@@ -110,6 +120,9 @@ D(
     "komapedia.org",
     REG_NONE,
     DnsProvider("inwx"),
+
+    CAA_LETSENCRYPT(),
+
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
 
