@@ -89,24 +89,24 @@ D(
     NS("desec", "ns1.desec.io."),
     NS("desec", "ns2.desec.org."),
 
-    MX("@", 0, "mx0.stugen.de."),
-    MX("@", 0, "mx1.stugen.de."),
+    MX("@", 10, "brausefrosch.hosts.die-koma.org.", TTL(300)),  // TODO increase TTL
+    TXT("@", "v=spf1 mx ra=postmaster -all", TTL(300)),  // TODO drop TTL override
+    TXT("_dmarc", "v=DMARC1; p=reject; rua=mailto:postmaster@die-koma.org; ruf=mailto:postmaster@die-koma.org"),
+    TXT("202503e._domainkey", "v=DKIM1; k=ed25519; h=sha256; p=Sn+LyM14oE9CkikTZuKldwT9Xo5aiwFbB+VIMfGZPjI="),
+    TXT("202503r._domainkey", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxMZ8aB44058PE1TVurqo7oKSxJTweFkJAwdYwsZpicD44jVJ9PK1MkDa3kYpl016Ykv0azDK+cH4DTvuwE7T0rw/qXJEAQpqsmkS6kGQWwnPDJDNJZisEG0PlMbk+HM+C301Pv+7St8alNfyIK0ckfuNyf03h4gnfv4UQCd5GLYNlIqZRbmvwSyGSwkeqPlXT6v3ohZQ3vL0o0I6s+ArCc379f1Mxv5NiwpYgTyHRab7RmRJeWAD2kafrjNhAWWAAcibsFxVE8ZtysbF2m2NRAcraYWPZBu9bXFajpbapzqrrH55aV0T8DFnf3yPkcmAgwpm6RjS5XvUHKfD58sUvQIDAQAB"),
+    TXT("_smtp.tls", "v=TLSRPTv1; rua=mailto:postmaster@die-koma.org"),
 
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
+    TXT("brausefrosch.hosts", "v=spf1 a ra=postmaster -all"),
 
     HOST("brausefrosch.hosts", "brausefrosch"),
-    MX("brausefrosch.hosts", 10, "brausefrosch.hosts.die-koma.org."),
-    TXT("brausefrosch.hosts", "v=spf1 a ra=postmaster -all"),
-    TXT("brausefrosch.hosts", "v=spf1 mx ra=postmaster -all"),
+    ACME("brausefrosch.hosts", "brausefrosch"),
 
-    TXT("_dmarc.brausefrosch", "v=DMARC1; p=reject; rua=mailto:postmaster@brausefrosch.die-koma.org; ruf=mailto:postmaster@brausefrosch.die-koma.org"),
-    TXT("202411e._domainkey.brausefrosch", "v=DKIM1; k=ed25519; h=sha256; p=52Ezg3f5qtQ4FsQ2WK2X/nPUZQSm0n2nby1VuxGq4Q0="),
-    TXT("202411r._domainkey.brausefrosch", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0kYMvpqBquVENKL39FEljeXVLNAFO4R3ydsyJwZP0rBIGqLegDSD9VBP24mJ6uZLT3g6GXbUkiUon09S2Ta6aPW9OXT8Cy2UJ4QlxaQoBA1w9uIX1PqxMEr4EmKJyfw2Xb1wQvIxO419YRo0evZNvmDSYLv8HLnVfBlVUJsuTMB9DnZ0ng8PSWVZ8UI/wq3VW+VnpwXsdJY4Pmw6iJ3RkNyKexbyISpDZwPjgUBQ+mvnJSG7ISYCNOEkT5auPb6uDSq7BT01eWy5WMA05sqTabPeccdENHq9n/Len2DgAA+7dSrLG2pSfwU9RaCWW4+aMy0W1E5uWwGIDnglikLXRwIDAQAB"),
+    CNAME_ACME("brausefrosch", "brausefrosch"),  // can be deleted soon
 
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
-    CNAME_ACME("brausefrosch", "brausefrosch"),
     CNAME_ACME("cloud", "brausefrosch"),
     CNAME_ACME("matrix", "brausefrosch"),
     CNAME_ACME("new", "brausefrosch"),
@@ -126,11 +126,12 @@ D(
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
 
-    MX("@", 10, "brausefrosch.hosts.die-koma.org."),
+    MX("@", 10, "brausefrosch.hosts.die-koma.org.", TTL(300)),  // TODO increase TTL
     TXT("@", "v=spf1 mx ra=postmaster -all"),
     TXT("_dmarc", "v=DMARC1; p=reject; rua=mailto:postmaster@komapedia.org; ruf=mailto:postmaster@komapedia.org"),
     TXT("202411e._domainkey", "v=DKIM1; k=ed25519; h=sha256; p=kPe7mzLvckTRpvIKugKJbzpyiZm15ojeSCP0Ko/Oz0w="),
     TXT("202411r._domainkey", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyCPH5+cAh6vzGuNeQDfZa/D296+edvyGeb/FGlyg1kJNuafVHEBy4d3Ecpf0nu+kspwdyTxk+hWRmqEV6tkvhtY3e2WryKvaY+0KMQaNZRvaAEF3fJ3sGNwCqFhi7hZe0/wglLKuEup1sWNGGEVH+W+z6zgVnNsxLfY/MoPdR91K7ZK6BFbxqVZbg81tNScOyQFzXrR9T6WVZDrJJw+qQRsqbJqK2TI6CLjzGHsnwAUcc3jZub0ZGPACM/alqlcKknW8UoDnKeVsoMGJJMqjStE9gqwfVXGfrW8EOtggA/0KfrPToKvUzOmLjiDeHUYz0ZEf1p14YCwcLf1yrgkXnQIDAQAB"),
+    TXT("_smtp.tls", "v=TLSRPTv1; rua=mailto:postmaster@komapedia.org"),
 
     CNAME_ACME("de", "brausefrosch"),
     CNAME_ACME("file", "brausefrosch"),
