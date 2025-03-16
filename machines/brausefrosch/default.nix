@@ -38,7 +38,6 @@ mkMachine { } (
         enable = true;
         domain = "die-koma.org";
         serverName = "matrix.die-koma.org";
-        ACMEhost = "brausefrosch.die-koma.org";
         port = 8008;
       };
       nginx.enable = true;

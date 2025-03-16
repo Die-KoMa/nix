@@ -23,7 +23,7 @@ mkTrivialModule {
   sops.defaultSopsFile = config.wat.machines.${config.networking.hostName}."secrets.yml".file;
   sops.defaultSopsFormat = "yaml";
 
-  networking.domain = mkDefault "die-koma.org";
+  networking.domain = mkDefault "hosts.die-koma.org";
 
   console = {
     font = "Lat2-Terminus16";
