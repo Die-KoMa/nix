@@ -89,8 +89,8 @@ D(
     NS("desec", "ns1.desec.io."),
     NS("desec", "ns2.desec.org."),
 
-    MX("@", 10, "brausefrosch.hosts.die-koma.org.", TTL(300)),  // TODO increase TTL
-    TXT("@", "v=spf1 mx ra=postmaster -all", TTL(300)),  // TODO drop TTL override
+    MX("@", 10, "brausefrosch.hosts.die-koma.org.", TTL(86400)),
+    TXT("@", "v=spf1 mx ra=postmaster -all"),
     TXT("_dmarc", "v=DMARC1; p=reject; rua=mailto:postmaster@die-koma.org; ruf=mailto:postmaster@die-koma.org"),
     TXT("202503e._domainkey", "v=DKIM1; k=ed25519; h=sha256; p=Sn+LyM14oE9CkikTZuKldwT9Xo5aiwFbB+VIMfGZPjI="),
     TXT("202503r._domainkey", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxMZ8aB44058PE1TVurqo7oKSxJTweFkJAwdYwsZpicD44jVJ9PK1MkDa3kYpl016Ykv0azDK+cH4DTvuwE7T0rw/qXJEAQpqsmkS6kGQWwnPDJDNJZisEG0PlMbk+HM+C301Pv+7St8alNfyIK0ckfuNyf03h4gnfv4UQCd5GLYNlIqZRbmvwSyGSwkeqPlXT6v3ohZQ3vL0o0I6s+ArCc379f1Mxv5NiwpYgTyHRab7RmRJeWAD2kafrjNhAWWAAcibsFxVE8ZtysbF2m2NRAcraYWPZBu9bXFajpbapzqrrH55aV0T8DFnf3yPkcmAgwpm6RjS5XvUHKfD58sUvQIDAQAB"),
@@ -126,7 +126,7 @@ D(
     HOST("@", "brausefrosch"),
     ACME("@", "brausefrosch"),
 
-    MX("@", 10, "brausefrosch.hosts.die-koma.org.", TTL(300)),  // TODO increase TTL
+    MX("@", 10, "brausefrosch.hosts.die-koma.org.", TTL(86400)),
     TXT("@", "v=spf1 mx ra=postmaster -all"),
     TXT("_dmarc", "v=DMARC1; p=reject; rua=mailto:postmaster@komapedia.org; ruf=mailto:postmaster@komapedia.org"),
     TXT("202411e._domainkey", "v=DKIM1; k=ed25519; h=sha256; p=kPe7mzLvckTRpvIKugKJbzpyiZm15ojeSCP0Ko/Oz0w="),
@@ -138,3 +138,7 @@ D(
     CNAME_ACME("www", "brausefrosch"),
     []
 );
+
+// Local Variables:
+// apheleia-mode: nil
+// End:
