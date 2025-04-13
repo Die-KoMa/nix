@@ -173,6 +173,10 @@ mkModule {
           enable = true;
           environmentFile = config.sops.secrets.mautrix-env-file.path;
           settings = {
+            log = {
+              root.level = "WARNING";
+            };
+
             homeserver = {
               # we could also go for https:// on port 443 and talk through nginx, but I don't
               # see any benefit in this for local communication
