@@ -122,7 +122,7 @@ mkModule {
               }
             ];
             log = {
-              loggers.root.level = "WARNING";
+              root.level = "WARNING";
             };
             app_service_config_files = [
               # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
