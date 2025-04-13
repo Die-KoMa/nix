@@ -51,7 +51,6 @@ mkTrivialModule {
   wat.KoMa = {
     nginx.enable = true;
     mariadb.enable = true;
-    acme.extraDomainNames = [ domainName ] ++ extraDomainNames;
   };
 
   sops.secrets.nextcloud-admin-pass = {

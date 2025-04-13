@@ -76,7 +76,6 @@ mkModule {
 
       wat.KoMa = {
         postgresql.enable = true;
-        acme.extraDomainNames = [ "matrix.die-koma.org" ];
       };
 
       environment.systemPackages =

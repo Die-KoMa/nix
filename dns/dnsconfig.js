@@ -103,15 +103,12 @@ D(
     HOST("brausefrosch.hosts", "brausefrosch"),
     ACME("brausefrosch.hosts", "brausefrosch"),
 
-    CNAME_ACME("brausefrosch", "brausefrosch"),  // can be deleted soon
-
     CNAME("anmeldung", "pretix.fachschaften.org."),
 
-    CNAME_ACME("cloud", "brausefrosch"),
-    CNAME_ACME("matrix", "brausefrosch"),
-    CNAME_ACME("new", "brausefrosch"),
-
-    CNAME_ACME("www", "brausefrosch"),
+    CNAME_HOST("cloud", "brausefrosch"),
+    CNAME_HOST("matrix", "brausefrosch"),
+    CNAME_HOST("new", "brausefrosch"),
+    CNAME_HOST("www", "brausefrosch"),
 
     []
 );

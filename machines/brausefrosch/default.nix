@@ -25,8 +25,7 @@ mkMachine { } (
         staging = false;
         extraDomainNames = [
           "die-koma.org"
-          "new.die-koma.org"
-          "www.die-koma.org"
+          "*.die-koma.org"
         ];
       };
       base.enable = true;
