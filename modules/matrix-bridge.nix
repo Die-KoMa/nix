@@ -121,9 +121,6 @@ mkModule {
                 ];
               }
             ];
-            log = {
-              root.level = "WARNING";
-            };
             app_service_config_files = [
               # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
               # and the access rights needs to be fixed.
@@ -132,6 +129,10 @@ mkModule {
           };
 
           extraConfigFiles = [ config.sops.secrets.synapse.path ];
+
+          log = {
+            root.level = "WARNING";
+          };
         };
 
         postgresql = {
@@ -173,7 +174,7 @@ mkModule {
           enable = true;
           environmentFile = config.sops.secrets.mautrix-env-file.path;
           settings = {
-            log = {
+            logging = {
               root.level = "WARNING";
             };
 
