@@ -7,10 +7,10 @@
 with lib;
 
 let
-  domainName = "de.komapedia.org";
+  serverName = "de.komapedia.org";
+  domainName = "komapedia.org";
   extraDomainNames = [
-    "komapedia.org"
-    "www.komapedia.org"
+    "*.komapedia.org"
   ];
   fileDomainName = "file.komapedia.org";
   extraFileDomainNames = [
@@ -23,6 +23,8 @@ mkTrivialModule {
   die-koma.komapedia = {
     enable = true;
     inherit stateDir;
+
+    hostName = serverName;
 
     poweredBy.hetzner = {
       alt = "hosted by HETZNER";
@@ -64,7 +66,6 @@ mkTrivialModule {
       extraDomainNames = concatLists [
         (singleton domainName)
         extraDomainNames
-        (singleton fileDomainName)
         extraFileDomainNames
       ];
     };

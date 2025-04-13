@@ -133,9 +133,9 @@ D(
     TXT("202411r._domainkey", "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyCPH5+cAh6vzGuNeQDfZa/D296+edvyGeb/FGlyg1kJNuafVHEBy4d3Ecpf0nu+kspwdyTxk+hWRmqEV6tkvhtY3e2WryKvaY+0KMQaNZRvaAEF3fJ3sGNwCqFhi7hZe0/wglLKuEup1sWNGGEVH+W+z6zgVnNsxLfY/MoPdR91K7ZK6BFbxqVZbg81tNScOyQFzXrR9T6WVZDrJJw+qQRsqbJqK2TI6CLjzGHsnwAUcc3jZub0ZGPACM/alqlcKknW8UoDnKeVsoMGJJMqjStE9gqwfVXGfrW8EOtggA/0KfrPToKvUzOmLjiDeHUYz0ZEf1p14YCwcLf1yrgkXnQIDAQAB"),
     TXT("_smtp.tls", "v=TLSRPTv1; rua=mailto:postmaster@komapedia.org"),
 
-    CNAME_ACME("de", "brausefrosch"),
-    CNAME_ACME("file", "brausefrosch"),
-    CNAME_ACME("www", "brausefrosch"),
+    CNAME_HOST("de", "brausefrosch"),
+    CNAME_HOST("file", "brausefrosch"),
+    CNAME_HOST("www", "brausefrosch"),
     []
 );
 
