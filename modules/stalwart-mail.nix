@@ -1,7 +1,6 @@
 {
   mkModule,
   config,
-  pkgs,
   lib,
   liftToNamespace,
   ...
@@ -19,9 +18,9 @@ mkModule {
         default = 8009;
       };
 
-      domains = mkOption {
-        description = "domain names for the mail server";
-        type = types.listOf types.str;
+      reportDomain = mkOption {
+        description = "domain name for use in Delivery Status Notifications";
+        type = types.str;
       };
     };
 
@@ -66,6 +65,7 @@ mkModule {
               };
             };
           };
+          report.domain = cfg.reportDomain;
           lookup.default.hostname = config.networking.fqdn;
           certificate.default =
             let

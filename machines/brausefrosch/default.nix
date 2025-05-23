@@ -40,7 +40,10 @@ mkMachine { } (
         port = 8008;
       };
       nginx.enable = true;
-      stalwart-mail.enable = true;
+      stalwart-mail = {
+        enable = true;
+        reportDomain = "die-koma.org";
+      };
     };
 
     wat.thelegy.backup = {
