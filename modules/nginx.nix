@@ -23,6 +23,9 @@ mkModule {
 
     services.nginx = {
       enable = true;
+      appendConfig = ''
+        worker_shutdown_timeout 10s;
+      '';
       virtualHosts.default = {
         default = true;
         addSSL = true;
