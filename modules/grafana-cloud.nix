@@ -12,14 +12,9 @@ mkModule {
     cfg:
     liftToNamespace {
 
-      sopsGrafanaMetricsUrlFile = mkOption {
+      sopsGrafanaMetricsEnvFile = mkOption {
         type = types.str;
-        default = "grafana-metrics-url";
-      };
-
-      sopsGrafanaMetricsUserFile = mkOption {
-        type = types.str;
-        default = "grafana-metrics-user";
+        default = "grafana-metrics-env";
       };
 
       sopsGrafanaMetricsPasswordFile = mkOption {
@@ -32,37 +27,61 @@ mkModule {
     sops.secrets =
       genAttrs
         [
-          cfg.sopsGrafanaMetricsUrlFile
-          cfg.sopsGrafanaMetricsUserFile
+          cfg.sopsGrafanaMetricsEnvFile
           cfg.sopsGrafanaMetricsPasswordFile
         ]
         (_: {
           format = "yaml";
           mode = "0600";
-          restartUnits = [ "grafana-agent.service" ];
+          restartUnits = [ "alloy.service" ];
         });
 
-    services.grafana-agent = {
+    services.alloy = {
       enable = true;
-      extraFlags = [ "-disable-reporting" ];
-      credentials = {
-        METRICS_REMOTE_WRITE_URL = config.sops.secrets.${cfg.sopsGrafanaMetricsUrlFile}.path;
-        METRICS_REMOTE_WRITE_USERNAME = config.sops.secrets.${cfg.sopsGrafanaMetricsUserFile}.path;
-        metrics_remote_write_password = config.sops.secrets.${cfg.sopsGrafanaMetricsPasswordFile}.path;
-      };
-      settings = {
-        metrics.global.remote_write = [
-          {
-            url = "\${METRICS_REMOTE_WRITE_URL}";
-            basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
-            basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
+      configPath = "/etc/alloy";
+    };
+
+    environment.etc."alloy/config.alloy".text = ''
+      prometheus.remote_write "default" {
+        endpoint {
+          url = string.format("%s", sys.env("METRICS_REMOTE_WRITE_URL"))
+
+          basic_auth {
+            username = string.format("%s", sys.env("METRICS_REMOTE_WRITE_USERNAME"))
+            password_file = string.format("%s/METRICS_REMOTE_WRITE_PASSWORD", sys.env("CREDENTIALS_DIRECTORY"))
           }
-        ];
-        integrations.node_exporter = {
-          instance = config.networking.hostName;
-          enable_collectors = [ "systemd" ];
-        };
-      };
+        }
+      }
+    '';
+
+    environment.etc."alloy/self-exporter.alloy".text = ''
+      prometheus.exporter.self "self" {
+      }
+
+      prometheus.scrape "self" {
+        targets = prometheus.exporter.self.self.targets
+        forward_to = [prometheus.remote_write.default.receiver]
+      }
+    '';
+
+    environment.etc."alloy/unix-exporter.alloy".text = ''
+      prometheus.exporter.unix "self" {
+        enable_collectors = [
+          "systemd",
+        ]
+      }
+
+      prometheus.scrape "unix" {
+        targets = prometheus.exporter.unix.self.targets
+        forward_to = [prometheus.remote_write.default.receiver]
+      }
+    '';
+
+    systemd.services.alloy.serviceConfig = {
+      EnvironmentFile = config.sops.secrets.${cfg.sopsGrafanaMetricsEnvFile}.path;
+      LoadCredential = [
+        "METRICS_REMOTE_WRITE_PASSWORD:${config.sops.secrets.${cfg.sopsGrafanaMetricsPasswordFile}.path}"
+      ];
     };
   };
 }
