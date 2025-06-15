@@ -30,6 +30,13 @@ mkMachine { } (
       };
       base.enable = true;
       grafana-cloud.enable = true;
+      aksync = {
+        enable = true;
+        onCalendar = [
+          "2025-06-15..23 *:0/5:00"
+          "2025-06-24..31 *:0/15:00"
+        ];
+      };
       homepage.enable = true;
       komapedia.enable = true;
       nextcloud.enable = true;
