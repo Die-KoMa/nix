@@ -12,7 +12,7 @@ mkTrivialModule {
   services = {
     mysql = {
       enable = true;
-      package = pkgs.mariadb_1011;
+      package = pkgs.mariadb_114;
     };
 
     mysqlBackup = {

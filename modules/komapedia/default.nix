@@ -125,10 +125,12 @@ mkTrivialModule {
                 rewrite ^/wiki/(?<pagename>.*)$ /index.php;
               '';
               "@rewrite".extraConfig = ''
-                rewrite ^/(.*)$ /index.php?title=$1&$args;
+                rewrite ^/((?!(index|load|api|thumb|opensearch_desc|rest|img_auth)).*)$ /index.php?title=$1&$args;
+                rewrite ^/(index|load|api|thumb|opensearch_desc|rest|img_auth)\.php/(.*)$ /$1.php?title=$2&$args;
                 rewrite ^$ /index.php;
               '';
-              "~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$query_string";
+
+              "^~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$query_string";
               "^~ /maintenance/".return = "403";
               "~ \\.php$" = {
                 fastcgiParams.SCRIPT_FILENAME = "$request_filename";

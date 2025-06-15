@@ -120,11 +120,6 @@ mkModule {
                 ];
               }
             ];
-            app_service_config_files = [
-              # This file needs to be copied from /var/lib/mautrix-telegram/telegram-registration.yaml
-              # and the access rights needs to be fixed.
-              "/var/lib/matrix-synapse/telegram-registration.yaml"
-            ];
           };
 
           extraConfigFiles = [ config.sops.secrets.synapse.path ];

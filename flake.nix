@@ -2,10 +2,15 @@
 
   inputs = {
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     komapedia = {
       url = "github:Die-KoMa/mediawiki";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    aksync = {
+      url = "github:Die-KoMa/aksync";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -20,7 +25,7 @@
     };
 
     homemanager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -65,9 +70,15 @@
             flakes.sops-nix.nixosModules.sops
           ]
           (attrValues flakes.komapedia.nixosModules)
+          (attrValues flakes.aksync.nixosModules)
           (attrValues flakes.yaner.nixosModules)
         ];
-        loadOverlays = concatLists [ [ flakes.yaner.overlay ] ];
+        loadOverlays = concatLists [
+          [
+            flakes.yaner.overlay
+            flakes.aksync.overlays.default
+          ]
+        ];
         outputs = {
           apps = withPkgs (
             pkgs:
