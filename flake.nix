@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    aksync = {
+      url = "github:Die-KoMa/aksync";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     wat = {
       url = "github:thelegy/wat";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,9 +70,15 @@
             flakes.sops-nix.nixosModules.sops
           ]
           (attrValues flakes.komapedia.nixosModules)
+          (attrValues flakes.aksync.nixosModules)
           (attrValues flakes.yaner.nixosModules)
         ];
-        loadOverlays = concatLists [ [ flakes.yaner.overlay ] ];
+        loadOverlays = concatLists [
+          [
+            flakes.yaner.overlay
+            flakes.aksync.overlays.default
+          ]
+        ];
         outputs = {
           apps = withPkgs (
             pkgs:
