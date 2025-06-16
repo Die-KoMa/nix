@@ -192,6 +192,10 @@ mkModule {
             };
             bridge = {
               authless_portals = false;
+              encryption = {
+                allow = true;
+                default = false;
+              };
               permissions = {
                 "*" = "relaybot";
                 "@${cfg.bridgeAdmin}:${cfg.domain}" = "admin";

@@ -68,6 +68,13 @@
           [
             flakes.homemanager.nixosModules.home-manager
             flakes.sops-nix.nixosModules.sops
+            {
+              nixpkgs.config = {
+                # for mautrix-telegram, since KIF-KoMa 2025 needs
+                # bridging to an encrypted channel
+                permittedInsecurePackages = [ "olm-3.2.16" ];
+              };
+            }
           ]
           (attrValues flakes.komapedia.nixosModules)
           (attrValues flakes.aksync.nixosModules)
