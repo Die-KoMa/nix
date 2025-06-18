@@ -46,11 +46,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1750205023,
-        "narHash": "sha256-fQFLbOsGlRq9Rvny7uM8PVAEpbdj1N2EkbhlJNiYCEA=",
+        "lastModified": 1750276980,
+        "narHash": "sha256-SMgWg2XwTnoP3sdPbM2d1RTpZw9jUmF3R6KiitvRls4=",
         "owner": "Die-KoMa",
         "repo": "aksync",
-        "rev": "fb78154c926beebe77344f7277e7c41e27b10ea3",
+        "rev": "a0ca2115244d249abeea3cafbd91b0010d002d0a",
         "type": "github"
       },
       "original": {
@@ -381,11 +381,11 @@
         "utils": "utils_3"
       },
       "locked": {
-        "lastModified": 1750260134,
-        "narHash": "sha256-dtfIN+sLw5w2QBRw1F65mPYl+cUdGYB4GgUZOSC70BA=",
+        "lastModified": 1750279951,
+        "narHash": "sha256-D6uK11rhQSLMPELRKjf+7+SgOKND4fylHOHXFCN7qVU=",
         "owner": "Die-KoMa",
         "repo": "kommemeorate",
-        "rev": "6246fc2abe52c7eb3b1d93b6a0ca374fbe142aa6",
+        "rev": "42d29ecda94c22c03f24f4067781499a85c000c4",
         "type": "github"
       },
       "original": {
@@ -501,11 +501,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1750005367,
-        "narHash": "sha256-h/aac1dGLhS3qpaD2aZt25NdKY7b+JT0ZIP2WuGsJMU=",
+        "lastModified": 1750133334,
+        "narHash": "sha256-urV51uWH7fVnhIvsZIELIYalMYsyr2FCalvlRTzqWRw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6c64dabd3aa85e0c02ef1cdcb6e1213de64baee3",
+        "rev": "36ab78dab7da2e4e27911007033713bab534187b",
         "type": "github"
       },
       "original": {
