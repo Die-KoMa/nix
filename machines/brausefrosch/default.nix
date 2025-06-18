@@ -41,8 +41,8 @@ mkMachine { } (
         enable = true;
 
         telegramGroups = {
-          "KoMa-memes" = -1001884709503;
-          "KIF-KoMa-2025-memes" = -1002651492607;
+          "KoMa-memes" = 1884709503;
+          "KIF-KoMa-2025-memes" = 2651492607;
         };
 
         storagePath = "/data/memes";
