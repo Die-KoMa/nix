@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    kommemeorate = {
+      url = "github:Die-KoMa/kommemeorate";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     wat = {
       url = "github:thelegy/wat";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,6 +81,7 @@
               };
             }
           ]
+          (attrValues flakes.kommemeorate.nixosModules)
           (attrValues flakes.komapedia.nixosModules)
           (attrValues flakes.aksync.nixosModules)
           (attrValues flakes.yaner.nixosModules)
@@ -84,6 +90,7 @@
           [
             flakes.yaner.overlay
             flakes.aksync.overlays.default
+            flakes.kommemeorate.overlays.default
           ]
         ];
         outputs = {

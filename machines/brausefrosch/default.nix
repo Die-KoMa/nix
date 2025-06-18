@@ -37,6 +37,17 @@ mkMachine { } (
           "2025-06-24..31 *:0/15:00"
         ];
       };
+      kommemeorate = {
+        enable = true;
+
+        telegramGroups = {
+          "KoMa-memes" = -1001884709503;
+          "KIF-KoMa-2025-memes" = -1002651492607;
+        };
+
+        storagePath = "/data/memes";
+        databaseUrl = "postgres://kommemeorate@/kommemeorate";
+      };
       homepage.enable = true;
       komapedia.enable = true;
       nextcloud.enable = true;
