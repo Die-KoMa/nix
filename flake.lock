@@ -46,11 +46,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1750276980,
-        "narHash": "sha256-SMgWg2XwTnoP3sdPbM2d1RTpZw9jUmF3R6KiitvRls4=",
+        "lastModified": 1750309836,
+        "narHash": "sha256-6gvAKUb+yfRJCGydxcQqwyiXJZCupfMOPaVu4tzcvgg=",
         "owner": "Die-KoMa",
         "repo": "aksync",
-        "rev": "a0ca2115244d249abeea3cafbd91b0010d002d0a",
+        "rev": "728ba71d93a525e5dd2c415c4f57a3804f1ca920",
         "type": "github"
       },
       "original": {
