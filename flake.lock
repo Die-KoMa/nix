@@ -381,11 +381,11 @@
         "utils": "utils_3"
       },
       "locked": {
-        "lastModified": 1750282713,
-        "narHash": "sha256-WGbD58sxaKds+pXh9e99WgIe7tOByBjMX+3DLKWf5OU=",
+        "lastModified": 1750307206,
+        "narHash": "sha256-PyGZ+ACyJ3NbEvauOlRnZ7vmcsPvgWIJKHFVra+DHbs=",
         "owner": "Die-KoMa",
         "repo": "kommemeorate",
-        "rev": "bc1370cbeab2b28cc75c284401ae47f8cfe7a899",
+        "rev": "9f63f204313d849f0191009928a5be8b0b7acc96",
         "type": "github"
       },
       "original": {
