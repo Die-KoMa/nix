@@ -115,55 +115,54 @@ mkTrivialModule {
           extraConfig = ''
             client_max_body_size 100m;
           '';
-          locations =
-            {
-              "/" = {
-                tryFiles = "$uri $uri/ @rewrite";
-                index = "index.php";
-              };
-              "^~ /wiki/".extraConfig = ''
-                rewrite ^/wiki/(?<pagename>.*)$ /index.php;
-              '';
-              "@rewrite".extraConfig = ''
-                rewrite ^/((?!(index|load|api|thumb|opensearch_desc|rest|img_auth)).*)$ /index.php?title=$1&$args;
-                rewrite ^/(index|load|api|thumb|opensearch_desc|rest|img_auth)\.php/(.*)$ /$1.php?title=$2&$args;
-                rewrite ^$ /index.php;
-              '';
+          locations = {
+            "/" = {
+              tryFiles = "$uri $uri/ @rewrite";
+              index = "index.php";
+            };
+            "^~ /wiki/".extraConfig = ''
+              rewrite ^/wiki/(?<pagename>.*)$ /index.php;
+            '';
+            "@rewrite".extraConfig = ''
+              rewrite ^/((?!(index|load|api|thumb|opensearch_desc|rest|img_auth)).*)$ /index.php?title=$1&$args;
+              rewrite ^/(index|load|api|thumb|opensearch_desc|rest|img_auth)\.php/(.*)$ /$1.php?title=$2&$args;
+              rewrite ^$ /index.php;
+            '';
 
-              "^~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$query_string";
-              "^~ /maintenance/".return = "403";
-              "~ \\.php$" = {
-                fastcgiParams.SCRIPT_FILENAME = "$request_filename";
-                extraConfig = ''
-                  fastcgi_pass unix:${config.services.phpfpm.pools.mediawiki.socket};
-                '';
-              };
-              "~ \\.(js|css|ttf|woff2?|png|jpe?g|svg|ico)$" = {
-                tryFiles = "$uri /index.php";
-                extraConfig = ''
-                  expires max;
-                  log_not_found off;
-                  access_log off;
-                '';
-              };
-              "/_.gif".extraConfig = ''
+            "^~ /wiki/rest.php".tryFiles = "$uri $uri/ /rest.php?$query_string";
+            "^~ /maintenance/".return = "403";
+            "~ \\.php$" = {
+              fastcgiParams.SCRIPT_FILENAME = "$request_filename";
+              extraConfig = ''
+                fastcgi_pass unix:${config.services.phpfpm.pools.mediawiki.socket};
+              '';
+            };
+            "~ \\.(js|css|ttf|woff2?|png|jpe?g|svg|ico)$" = {
+              tryFiles = "$uri /index.php";
+              extraConfig = ''
                 expires max;
-                empty_gif;
+                log_not_found off;
+                access_log off;
               '';
-              "^~ /cache/".extraConfig = ''
-                deny all;
-              '';
-              "^~ /resources/".alias = "${config.services.mediawiki.finalPackage}/share/mediawiki/resources/";
-            }
-            // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
-              "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
-              "=/favicon.ico".alias = ./komapedia-favicon.ico;
-              "=/images/hosted-by-hetzner.png".alias = ./hosted-by-hetzner-201.png;
-              "=/images/komapedia-logo.png".alias = ./komapedia-logo.png;
-              "^~ /images/deleted".extraConfig = ''
-                deny all;
-              '';
-            });
+            };
+            "/_.gif".extraConfig = ''
+              expires max;
+              empty_gif;
+            '';
+            "^~ /cache/".extraConfig = ''
+              deny all;
+            '';
+            "^~ /resources/".alias = "${config.services.mediawiki.finalPackage}/share/mediawiki/resources/";
+          }
+          // (optionalAttrs (config.services.mediawiki.uploadsDir != null) {
+            "^~ /images/".alias = "${config.services.mediawiki.uploadsDir}";
+            "=/favicon.ico".alias = ./komapedia-favicon.ico;
+            "=/images/hosted-by-hetzner.png".alias = ./hosted-by-hetzner-201.png;
+            "=/images/komapedia-logo.png".alias = ./komapedia-logo.png;
+            "^~ /images/deleted".extraConfig = ''
+              deny all;
+            '';
+          });
         };
       };
     };
@@ -171,5 +170,8 @@ mkTrivialModule {
 
   users.users.nginx.extraGroups = [ "mediawiki" ];
 
-  systemd.services.nginx.after = [ "mysql.service" ];
+  systemd.services = {
+    nginx.after = [ "mysql.service" ];
+    mediawiki-init.after = [ "mysql.service" ];
+  };
 }
