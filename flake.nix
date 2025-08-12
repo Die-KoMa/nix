@@ -3,6 +3,7 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     komapedia = {
       url = "github:Die-KoMa/mediawiki";
