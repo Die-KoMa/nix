@@ -97,6 +97,9 @@ mkTrivialModule {
       extraApps = {
         inherit (package.packages.apps) calendar;
       };
+      phpOptions = {
+        "opcache.interned_strings_buffer" = 32;
+      };
     };
 
   services.nginx.virtualHosts.${domainName} = {
