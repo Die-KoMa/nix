@@ -90,6 +90,7 @@ mkTrivialModule {
       settings = {
         trusted_domains = extraDomainNames;
         default_phone_region = "DE";
+        maintenance_window_start = 1;
       };
       configureRedis = true;
       home = home;
