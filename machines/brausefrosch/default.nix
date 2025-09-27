@@ -62,15 +62,15 @@ mkMachine { } (
         enable = true;
         reportDomain = "die-koma.org";
       };
-    };
 
-    wat.thelegy.backup = {
-      enable = true;
-      borgbaseRepo = "xprokp58";
-      extraReadWritePaths = [
-        "/.backup-snapshots"
-        "/data/.backup-snapshots"
-      ];
+      backup = {
+        enable = true;
+        borgbaseRepo = "xprokp58";
+        extraReadWritePaths = [
+          "/.backup-snapshots"
+          "/data/.backup-snapshots"
+        ];
+      };
     };
 
     fileSystems."/data" = {

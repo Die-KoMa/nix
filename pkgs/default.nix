@@ -1,7 +1,7 @@
 flakes: final: prev:
 let
-  inherit (prev) lib system;
-  inherit (lib) versionOlder getVersion mapAttrs;
+  inherit (final) system;
+  inherit (prev.lib) versionOlder getVersion mapAttrs;
   unstable = flakes.nixpkgs-unstable.legacyPackages.${system};
 
   atLeastOrOverride =
@@ -15,4 +15,6 @@ in
   matrix-synapse-unwrapped = "1.135.2";
 })
 // {
+  neovim-thelegy = flakes.qed.packages.${system}.qed;
+  inxi-full = final.inxi.override { withRecommends = true; };
 }

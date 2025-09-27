@@ -30,28 +30,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    homemanager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    yaner = {
-      url = "github:thelegy/yaner";
-      inputs = {
-        homemanager.follows = "homemanager";
-        nixpkgs-stable.follows = "nixpkgs";
-        nixpkgs.follows = "nixpkgs";
-        sops-nix.follows = "sops-nix";
-        wat.follows = "wat";
-      };
-    };
+    qed.url = "github:thelegy/qed/dev";
   };
 
   outputs =
     flakes@{
       wat,
       nixpkgs,
-      sops-nix,
       ...
     }:
     let
@@ -72,7 +57,6 @@
       {
         loadModules = concatLists [
           [
-            flakes.homemanager.nixosModules.home-manager
             flakes.sops-nix.nixosModules.sops
             {
               nixpkgs.config = {
@@ -85,11 +69,9 @@
           (attrValues flakes.kommemeorate.nixosModules)
           (attrValues flakes.komapedia.nixosModules)
           (attrValues flakes.aksync.nixosModules)
-          (attrValues flakes.yaner.nixosModules)
         ];
         loadOverlays = concatLists [
           [
-            flakes.yaner.overlay
             flakes.aksync.overlays.default
             flakes.kommemeorate.overlays.default
           ]
@@ -124,19 +106,6 @@
               };
             }
           );
-
-          devShells = withPkgs (pkgs: rec {
-            sops = pkgs.mkShell {
-              name = "sops";
-              nativeBuildInputs = with pkgs; [
-                sops-import-keys-hook
-                ssh-to-pgp
-                (rekey pkgs)
-              ];
-              inherit sopsPGPKeyDirs;
-            };
-            default = sops;
-          });
 
           overlays.default = import ./pkgs flakes;
 

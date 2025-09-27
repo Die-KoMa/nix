@@ -9,9 +9,8 @@ with lib;
 
 mkTrivialModule {
 
-  wat.thelegy.homeManager.enable = true;
-  wat.thelegy.emergencyStorage.enable = mkDefault true;
-  wat.thelegy.zsh.enable = mkDefault true;
+  wat.KoMa.emergencyStorage.enable = mkDefault true;
+  wat.KoMa.zsh.enable = mkDefault true;
 
   wat.KoMa.admins.enable = true;
 
