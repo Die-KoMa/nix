@@ -77,6 +77,24 @@ mkModule {
       }
     '';
 
+    environment.etc."alloy/stalwart-exporter.alloy".text = ''
+      prometheus.relabel "stalwart" {
+        forward_to = [prometheus.remote_write.default.receiver]
+
+        rule {
+          replacement = "stalwart_$1"
+          source_labels = ["__name__"]
+          target_label = "__name__"
+          separator = "_"
+        }
+      }
+
+      prometheus.scrape "stalwart" {
+        targets = [{"__address__" = "localhost:8009", "__metrics_path__" = "/metrics/prometheus", "instance" = "${config.networking.hostName}"}]
+        forward_to = [prometheus.relabel.stalwart.receiver]
+      }
+    '';
+
     systemd.services.alloy.serviceConfig = {
       EnvironmentFile = config.sops.secrets.${cfg.sopsGrafanaMetricsEnvFile}.path;
       LoadCredential = [
