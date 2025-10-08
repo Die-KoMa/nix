@@ -49,9 +49,22 @@ mkModule {
 
     security.acme = {
       acceptTerms = true;
-      defaults.server = mkIf (cfg.staging) "https://acme-staging-v02.api.letsencrypt.org/directory";
-      defaults.email = "homepage@die-koma.org";
+      defaults = {
+        server = mkIf (cfg.staging) "https://acme-staging-v02.api.letsencrypt.org/directory";
+        email = "homepage@die-koma.org";
+        extraLegoFlags = [
+          "--dns.resolvers"
+          "2a01:4ff:ff00::add:1:53"
+          "--dns.resolvers"
+          "2a01:4ff:ff00::add:2:53"
+          "--dns.resolvers"
+          "185.12.64.1:53"
+          "--dns.resolvers"
+          "185.12.64.2:53"
+        ];
+      };
       preliminarySelfsigned = false;
+
       certs.${cfg.defaultCertName} = {
         inherit (cfg) extraDomainNames;
         dnsProvider = "desec";
