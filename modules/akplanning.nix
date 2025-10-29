@@ -21,20 +21,20 @@ mkTrivialModule {
     mariadb.enable = true;
   };
 
-  sops.secrets.akplanning-secrets = {
-    mode = "040)";
-    owner = "akplanning";
+  # sops.secrets.akplanning-secrets = {
+  #   mode = "040)";
+  #   owner = "akplanning";
 
-    reloadUnits = [ "uwsgi-akplanning.service" ];
+  #   reloadUnits = [ "uwsgi-akplanning.service" ];
+  # };
 
-    services.nginx.virtualHosts.${domainName} = {
-      forceSSL = true;
-      useACMEHost = config.wat.KoMa.nginx.useACMEHost;
-      serverAliases = extraDomainNames;
-      locations."/" = {
-        recommendedUwsgiSettings = true;
-        uwsgiPass = "uwsgi://127.0.0.1:${port}";
-      };
+  services.nginx.virtualHosts.${domainName} = {
+    forceSSL = true;
+    useACMEHost = config.wat.KoMa.nginx.useACMEHost;
+    serverAliases = extraDomainNames;
+    locations."/" = {
+      recommendedUwsgiSettings = true;
+      uwsgiPass = "uwsgi://127.0.0.1:${port}";
     };
   };
 }
