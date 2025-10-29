@@ -32,9 +32,16 @@ mkTrivialModule {
     forceSSL = true;
     useACMEHost = config.wat.KoMa.nginx.useACMEHost;
     serverAliases = extraDomainNames;
-    locations."/" = {
-      recommendedUwsgiSettings = true;
-      uwsgiPass = "uwsgi://127.0.0.1:${port}";
+    locations = {
+      "/" = {
+        recommendedUwsgiSettings = true;
+        uwsgiPass = "uwsgi://127.0.0.1:${port}";
+      };
+
+      "^~ /static/" = {
+        alias = "/data/akplanning/static/";
+        extraConfig = "allow all;";
+      };
     };
   };
 }
