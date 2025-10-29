@@ -38,6 +38,7 @@ mkMachine { } (
           "2025-11-05..30 *:0/15:00"
         ];
       };
+      akplanning.enable = true;
       kommemeorate = {
         enable = true;
 
