@@ -17,4 +17,5 @@ in
 // {
   neovim-thelegy = flakes.qed.packages.${system}.qed;
   inxi-full = final.inxi.override { withRecommends = true; };
+  akplanning = final.callPackage ./akplanning { };
 }
