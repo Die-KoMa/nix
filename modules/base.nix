@@ -88,7 +88,7 @@ mkTrivialModule {
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    package = pkgs.nixVersions.stable;
+    package = pkgs.lixPackageSets.stable.lix;
   };
 
   environment.systemPackages = with pkgs; [
