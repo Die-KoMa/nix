@@ -63,7 +63,6 @@ mkModule {
           "185.12.64.2:53"
         ];
       };
-      preliminarySelfsigned = false;
 
       certs.${cfg.defaultCertName} = {
         inherit (cfg) extraDomainNames;
