@@ -25,4 +25,6 @@ mkTrivialModule {
     "d /var/lib/postgresql 0750 postgres postgres - -"
     "H /var/lib/postgresql - - - - +C"
   ];
+
+  wat.KoMa.backup.extraExcludes = [ "/var/lib/postgresql" ];
 }

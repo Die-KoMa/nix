@@ -26,4 +26,6 @@ mkTrivialModule {
     "d /var/lib/mysql 0700 ${config.services.mysql.user} ${config.services.mysql.group} - -"
     "H /var/lib/mysql - - - - +C"
   ];
+
+  wat.KoMa.backup.extraExcludes = [ "/var/lib/mysql" ];
 }
