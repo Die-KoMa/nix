@@ -24,6 +24,7 @@ mkTrivialModule {
     environment.XDG_CACHE_HOME = "/var/cache/homepage-rollout";
     serviceConfig = {
       User = "homepage";
+      Type = "oneshot";
       DynamicUser = true;
       ProtectHome = "tmpfs";
       CacheDirectory = "homepage-rollout";
