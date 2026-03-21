@@ -19,7 +19,7 @@ mkTrivialModule {
     startAt = "*:00/5";
     path = [ pkgs.nixVersions.stable ];
     script = ''
-      nix --print-build-logs --refresh build --out-link /var/www/homepage/htdocs github:die-koma/die-koma.org/release
+      nix --print-build-logs --refresh build --out-link /var/www/homepage/htdocs github:die-koma/die-koma.org/release#KoMaHomepage
     '';
     environment.XDG_CACHE_HOME = "/var/cache/homepage-rollout";
     serviceConfig = {
