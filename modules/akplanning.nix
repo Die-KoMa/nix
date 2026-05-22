@@ -30,12 +30,4 @@ mkTrivialModule {
       akplanning-secret-key = mkSecret { key = "secret-key"; };
       akplanning-database-password = mkSecret { key = "db-password"; };
     };
-
-  wat.KoMa.acme = {
-    enable = true;
-    extraDomainNames = lib.concatLists [
-      (lib.singleton config.die-koma.akplanning.hostName)
-      config.die-koma.akplanning.extraHostNames
-    ];
-  };
 }
