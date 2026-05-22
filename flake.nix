@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    akplanning = {
+      url = "github:Die-KoMa/akplanning-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     aksync = {
       url = "github:Die-KoMa/aksync";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,6 +73,7 @@
           ]
           (attrValues flakes.kommemeorate.nixosModules)
           (attrValues flakes.komapedia.nixosModules)
+          (attrValues flakes.akplanning.nixosModules)
           (attrValues flakes.aksync.nixosModules)
         ];
         loadOverlays = concatLists [
