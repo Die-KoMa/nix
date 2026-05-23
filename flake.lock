@@ -43,11 +43,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1779555902,
-        "narHash": "sha256-sRDpgz28fWQRKryt88lGGzn5UHQNeBrCA6vT+CBgTas=",
+        "lastModified": 1779557267,
+        "narHash": "sha256-rY8X/jbanNjRyuECF5DKqeskCM+ZpOnwBryUHXUSJkM=",
         "owner": "Die-KoMa",
         "repo": "akplanning-nix",
-        "rev": "16db193cbec633c6004652c78cfea6d842a7c2a0",
+        "rev": "690e47f811e9967bedf7cf08e266ff8009343cce",
         "type": "github"
       },
       "original": {
