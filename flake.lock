@@ -43,11 +43,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1779417891,
-        "narHash": "sha256-4xijQqts4+K7s+LIFSPbymp5az3wZ1TFFH220n66egs=",
+        "lastModified": 1779548723,
+        "narHash": "sha256-kfX05StupiTeekAHT+xD7mXCpRKIOqwii0Iou6WCj2c=",
         "owner": "Die-KoMa",
         "repo": "akplanning-nix",
-        "rev": "2ab94577f68dd82ec75f911d6c45247ff03e33a0",
+        "rev": "ebd14ef35399502a2f8ec7b4bcb9339d5bc977da",
         "type": "github"
       },
       "original": {
@@ -458,11 +458,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1779393170,
-        "narHash": "sha256-VgUdXsnK6v3iO+hFqc0w3EEEAj+q/BxpOBXS9H1wq/A=",
+        "lastModified": 1779522599,
+        "narHash": "sha256-3F5IRy9EUlVYH9PYuBav+VVBSJsFK+XztqQ7AJU/I3M=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f63936d79dd618842dcf87d6c8b2917cf7445345",
+        "rev": "492bd1f77a7ccf2e2858b3935fe209d3b31f9159",
         "type": "github"
       },
       "original": {
