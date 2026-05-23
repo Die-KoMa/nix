@@ -32,7 +32,7 @@ mkMachine { } (
       grafana-cloud.enable = true;
       akplanning.enable = true;
       aksync = {
-        enable = true;
+        enable = false;
         onCalendar = [
           "2026-05-21..26 *:0/5:00"
           "2026-05-27..31 *:0/15:00"
