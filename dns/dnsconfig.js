@@ -59,7 +59,6 @@ D(
     DnsProvider("he"),
     NAMESERVER_TTL("2d"),
     IGNORE("_acme-challenge.*", "TXT"),
-    [],
 );
 
 D(
@@ -70,7 +69,6 @@ D(
     IGNORE("_acme-challenge.*", "TXT"),
     // we need _some_ record here so that lego doesn't fail because it receives an NXDOMAIN
     A("_acme-challenge.brausefrosch", "127.0.0.1"),
-    [],
 );
 
 D(
@@ -119,8 +117,6 @@ D(
     CNAME_HOST("new", "brausefrosch"),
     CNAME_HOST("www", "brausefrosch"),
     CNAME_HOST("aks", "brausefrosch"),
-
-    [],
 );
 
 D(
@@ -152,7 +148,6 @@ D(
     CNAME_HOST("de", "brausefrosch"),
     CNAME_HOST("file", "brausefrosch"),
     CNAME_HOST("www", "brausefrosch"),
-    [],
 );
 
 // Local Variables:
