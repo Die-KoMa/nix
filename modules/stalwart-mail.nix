@@ -31,8 +31,9 @@ mkModule {
       managementURL = "[::1]:${toString cfg.managementPort}";
     in
     {
-      services.stalwart-mail = {
+      services.stalwart = {
         enable = true;
+        stateVersion = "25.11";
         openFirewall = true;
         settings = {
           server = {
@@ -44,6 +45,7 @@ mkModule {
               smtp = {
                 protocol = "smtp";
                 bind = "[::]:25";
+                tls.enable = true;
               };
               submission = {
                 protocol = "smtp";
@@ -94,7 +96,7 @@ mkModule {
       systemd.services.stalwart-mail = {
         reload =
           let
-            stalwart-cli = "${config.services.stalwart-mail.package}/bin/stalwart-cli";
+            stalwart-cli = "${config.services.stalwart.package}/bin/stalwart-cli";
           in
           ''
             export URL=http://${managementURL}
@@ -105,7 +107,7 @@ mkModule {
         restartIfChanged = true;
       };
 
-      wat.KoMa.acme.reloadUnits = [ "stalwart-mail.service" ];
+      wat.KoMa.acme.reloadUnits = [ "stalwart.service" ];
 
     };
 }
