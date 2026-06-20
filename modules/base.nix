@@ -77,7 +77,7 @@ mkTrivialModule {
     export PATH
   '';
 
-  documentation.man.generateCaches = mkDefault true;
+  documentation.man.cache.enable = mkDefault true;
 
   nix = {
     gc = {
