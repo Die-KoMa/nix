@@ -67,7 +67,7 @@ mkModule {
       certs.${cfg.defaultCertName} = {
         inherit (cfg) extraDomainNames;
         dnsProvider = "desec";
-        credentialFiles.DESECT_TOKEN_FILE = config.sops.secrets.${cfg.sopsCredentialsFile}.path;
+        credentialFiles.DESEC_TOKEN_FILE = config.sops.secrets.${cfg.sopsCredentialsFile}.path;
         postRun = mkIf (length cfg.reloadUnits > 0) ''
           systemctl reload-or-restart ${concatStringsSep " " cfg.reloadUnits}
         '';
