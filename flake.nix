@@ -92,22 +92,27 @@
                 sopsImportKeysHook
                 exec ${pkgs.sops}/bin/sops "$@"
               '';
-              dnscontrol-wrapper = pkgs.writeScript "dnscontrol-wrapper" ''
-                #!${pkgs.zsh}/bin/zsh
-                set -euo pipefail
+              dnscontrol-wrapper = pkgs.writeShellApplication {
+                name = "dnscontrol-wrapper";
 
-                PATH="${pkgs.dnscontrol}/bin:$PATH"
-                PATH="${pkgs.nodejs}/bin:$PATH"
-                PATH="${pkgs.sops}/bin:$PATH"
-                PATH="${pkgs.typescript}/bin:$PATH"
-                export PATH
+                runtimeInputs = pkgs.lib.attrValues {
+                  inherit (pkgs)
+                    dnscontrol
+                    git
+                    nodejs
+                    sops
+                    typescript
+                    ;
+                };
 
-                cd $(git rev-parse --show-toplevel)/dns
+                text = ''
+                  cd "$(git rev-parse --show-toplevel)"/dns
 
-                dnscontrol write-types
-                tsc --project tsconfig.json
-                exec sops exec-env creds.yaml "dnscontrol $@"
-              '';
+                  dnscontrol write-types
+                  tsc --project tsconfig.json
+                  exec sops exec-env creds.yaml "dnscontrol $*"
+                '';
+              };
             in
             {
               sops-rekey = {
@@ -120,7 +125,7 @@
               };
               dnscontrol = {
                 type = "app";
-                program = "${dnscontrol-wrapper}";
+                program = "${pkgs.lib.getExe dnscontrol-wrapper}";
               };
             }
           );
