@@ -92,9 +92,21 @@
                 sopsImportKeysHook
                 exec ${pkgs.sops}/bin/sops "$@"
               '';
-              dnscontrol-wrapper = pkgs.writeShellScript "dnscontrol-wrapper" ''
-                cd ${./dns}
-                exec ${pkgs.sops}/bin/sops exec-env creds.yaml "${pkgs.dnscontrol}/bin/dnscontrol $@"
+              dnscontrol-wrapper = pkgs.writeScript "dnscontrol-wrapper" ''
+                #!${pkgs.zsh}/bin/zsh
+                set -euo pipefail
+
+                PATH="${pkgs.dnscontrol}/bin:$PATH"
+                PATH="${pkgs.nodejs}/bin:$PATH"
+                PATH="${pkgs.sops}/bin:$PATH"
+                PATH="${pkgs.typescript}/bin:$PATH"
+                export PATH
+
+                cd $(git rev-parse --show-toplevel)/dns
+
+                dnscontrol write-types
+                tsc --project tsconfig.json
+                exec sops exec-env creds.yaml "dnscontrol $@"
               '';
             in
             {
