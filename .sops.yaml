@@ -17,6 +17,7 @@ creation_rules:
           - *mmarx
           - *magnus
           - *nerf
+          - *david
   - path_regex: secrets/.*
     key_groups:
       - pgp:
@@ -25,9 +26,11 @@ creation_rules:
           - *mmarx
           - *magnus
           - *nerf
+          - *david
   - key_groups:
       - pgp:
           - *beini
           - *mmarx
           - *magnus
           - *nerf
+          - *david
