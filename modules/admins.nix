@@ -35,6 +35,13 @@ let
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVuQrWWKRFVlFfiwagVNOys0mB+8ZS53Ku6XVXHzHN8 kimbtech@desktop"
       ];
     };
+
+    david = {
+      hashedPassword = "$y$j9T$5rQOa.Wr7U0F/gFA4DDV//$cN3yR8UOJbZmWEtFHzcH.vVbfHby33qNQWHGcKE2CLD";
+      keys  = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINLvK96x7xfj+hCIuGAdwOLlX/flJ5HjRtkp3iTQV7P5 davidn@nixos";
+      ];
+    };
   };
 
   mkAdmin =
